@@ -34,10 +34,10 @@ module Decidim
             decidim_user_id: current_user.id,
             decidim_resource_type: resource_instance.class.name,
             decidim_resource_id: resource_instance.id,
-            reason: reason,
+            reason:,
             field_name: field,
-            locale: locale,
-            fix_suggestion: fix_suggestion
+            locale:,
+            fix_suggestion:
           )
 
           report.save!

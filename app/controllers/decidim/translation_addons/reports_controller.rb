@@ -35,8 +35,8 @@ module Decidim
 
       def permission_class_chain
         [
-            reportable.participatory_space.manifest.permissions_class,
-            Decidim::Permissions
+          reportable.participatory_space.manifest.permissions_class,
+          Decidim::Permissions
         ]
       end
 

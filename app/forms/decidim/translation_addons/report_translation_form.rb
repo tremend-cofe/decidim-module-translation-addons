@@ -6,8 +6,8 @@ module Decidim
     class ReportTranslationForm < Decidim::Form
       mimic :report
 
-      attribute :field, String #F ield that was reported
-      attribute :detail, String #Fix suggestion
+      attribute :field, String # F ield that was reported
+      attribute :detail, String # Fix suggestion
       attribute :reason, String # Reason for reporting: missing/wrong translation
       attribute :field_translation, String # Current value for the reported field
       attribute :locale, String # Current locale of the report

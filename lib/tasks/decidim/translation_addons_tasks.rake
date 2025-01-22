@@ -1,7 +1,4 @@
-# desc "Explaining what the task does"
-# task :decidim_translation_addons do
-#   # Task goes here
-# end
+# frozen_string_literal: true
 
 namespace :decidim do
   namespace :translation_addons do
@@ -82,7 +79,7 @@ namespace :decidim do
                         decidim_resource_id: resource.id,
                         field_name: field,
                         reason: "missing",
-                        locale: locale
+                        locale:
                       )
                       report.save!
                     rescue StandardError => e

@@ -50,7 +50,11 @@ module Decidim
       end
 
       def report_translation_path
-        @report_path ||= user_reportable? ? decidim.report_user_path(sgid: model.to_sgid.to_s) : Decidim::TranslationAddons::Engine.routes.url_helpers.translation_report_path(sgid: model.to_sgid.to_s)
+        @report_path ||= if user_reportable?
+                           decidim.report_user_path(sgid: model.to_sgid.to_s)
+                         else
+                           Decidim::TranslationAddons::Engine.routes.url_helpers.translation_report_path(sgid: model.to_sgid.to_s)
+                         end
       end
 
       def builder
@@ -84,6 +88,7 @@ module Decidim
       def already_reported_resource?
         already_reported_fields = Decidim::TranslationAddons::Report.where(decidim_resource_id: model&.id, decidim_user_id: current_user&.id, locale: current_user&.locale).count
         return true if already_reported_fields == translatable_fields.count
+
         false
       end
     end
