@@ -13,10 +13,9 @@ module Decidim
       routes do
         resource :translation_report, only: [:create], controller: "reports"
       end
-
       initializer "decidim_translation_addons.deface" do
         Rails.application.configure do
-          config.deface.enabled = true
+          config.deface.enabled = Decidim::TranslationAddons.deface_enabled
         end
       end
 

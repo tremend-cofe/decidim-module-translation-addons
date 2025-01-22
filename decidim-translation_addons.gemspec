@@ -30,5 +30,8 @@ Gem::Specification.new do |s|
     end
   end
 
+  s.add_dependency "decidim-admin", Decidim::TranslationAddons.version
   s.add_dependency "decidim-core", Decidim::TranslationAddons.version
+  s.add_dependency "deface", ">= 1.9"
+  # s.add_development_dependency "decidim-proposals", "~> 0.27"
 end

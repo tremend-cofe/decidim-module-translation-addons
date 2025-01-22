@@ -26,5 +26,9 @@ module Decidim
         klass.safe_constantize.present?
       end
     end
+
+    config_accessor :deface_enabled do
+      ENV.fetch("DEFACE_ENABLED", nil) == "true" || Rails.env.test?
+    end
   end
 end
