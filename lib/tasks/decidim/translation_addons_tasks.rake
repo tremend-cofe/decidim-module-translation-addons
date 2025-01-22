@@ -9,7 +9,7 @@ namespace :decidim do
     end
 
     desc "Searches for missing translations"
-    task :search_missing_translations do
+    task search_missing_translations: :environment do
       def merge_machine_translations_without_override(original)
         # Extract the machine translations
         machine_translations = original["machine_translations"] || {}

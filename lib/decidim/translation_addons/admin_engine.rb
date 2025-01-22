@@ -23,7 +23,7 @@ module Decidim
       initializer "decidim_translation_addons_admin.menu" do
         Decidim.menu :admin_global_moderation_menu do |menu|
           menu.add_item :translation_moderation,
-                        "Test",
+                        "Translation Reports",
                         decidim_admin_translation_addons.root_path,
                         position: 1.3,
                         active: is_active_link?(decidim_admin_translation_addons.root_path)
