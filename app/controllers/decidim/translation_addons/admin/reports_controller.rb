@@ -3,11 +3,13 @@
 module Decidim
   module TranslationAddons
     module Admin
-      # Controller used to manage participatory process types for the current
+      # Controller used to manage translation reports for the current
       # organization
       class ReportsController < Decidim::TranslationAddons::Admin::ApplicationController
+        # include Decidim::Moderations::Admin::Filterable // To be implemented for Decidim::TranslationAddons::Admin::Filterable
+
         def index
-          Decidim::TranslationAddons::Report.all
+          @reports = Decidim::TranslationAddons::Report.all
         end
       end
     end
