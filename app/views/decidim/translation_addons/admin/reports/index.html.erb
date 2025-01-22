@@ -1,13 +1,45 @@
-<% add_decidim_page_title("Test page") %>
+<% add_decidim_page_title(t("decidim.admin.reports.page_title")) %>
 <div class="item_show__header">
   <h1 class="item_show__header-title">
     <div>
-      <%= "Test page" %>
+      <%= t("decidim.admin.reports.page_title") %>
+      <span id="js-selected-moderated_users-count" class="component-counter " title="<%= t("decidim.admin.reports.page_title") %>"></span>
     </div>
 
-    <div class="flex items-center gap-x-4">
-
-    </div>
   </h1>
 </div>
 
+<%#= admin_filter_selector(:moderated_users) %>
+<div class="table-scroll">
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= "ID" %></th>
+      <th><%= "Resource ID" %></th>
+      <th><%= "Resource Type" %></th>
+      <th><%= "Resource URL" %></th>
+      <th><%= "Reason" %></th>
+      <th><%= "Created at" %></th>
+      <th><%= "Translation suggestion" %></th>
+      <th><%= "Translation failed counter" %></th>
+      <th><%= "Actions" %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @reports.each do |report| %>
+      <tr data-id="<%= report.id %>">
+          <td><%= report.id %></td>
+          <td><%= report.decidim_resource_id %></td>
+          <td><%= report.decidim_resource_type %></td>
+          <td><%= "URL for #{report.decidim_resource_type}" %></td>
+          <td><%= report.reason.capitalize %></td>
+          <td> <%= l report.created_at, format: :decidim_short %></td>
+          <td> <%= report.fix_suggestion %></td>
+          <td> <%= report.auto_translation_failed_count %></td>
+          <td> "Action icons" </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%#= decidim_paginate @reports %>

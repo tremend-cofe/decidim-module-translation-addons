@@ -1,6 +1,9 @@
 ---
 en:
   decidim:
+    admin:
+      reports:
+        page_title: Translation Reports
     shared:
       flag_modal:
         translation:
