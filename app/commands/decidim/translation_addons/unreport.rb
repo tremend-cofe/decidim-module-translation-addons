@@ -3,7 +3,7 @@
 module Decidim
   module TranslationAddons
     class Unreport < Decidim::Command
-      def initialize(report, resource_instance, current_user)
+      def initialize(report, current_user)
         @report = report
         @current_user = current_user
       end
