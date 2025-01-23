@@ -4,6 +4,23 @@ en:
     admin:
       reports:
         page_title: Translation Reports
+    translation_addons:
+      admin:
+        reports:
+          index:
+            actions: Actions
+            id: ID
+            unreport: Unreport
+            auto_translate: Run translation service
+            configure: Configure
+            reported_resource_id: Reported resource ID
+            reporter_id: Reporter ID
+            resource_url: Resource URL
+            report_reason: Reason
+            created_at: Created_at
+            fix_suggestion: Translation suggestion
+            translation_counter: Translation failed counter
+
     shared:
       flag_modal:
         translation:
