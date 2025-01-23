@@ -3,24 +3,24 @@
   <h1 class="item_show__header-title">
     <div>
       <%= t("decidim.admin.reports.page_title") %>
-      <span id="js-selected-moderated_users-count" class="component-counter " title="<%= t("decidim.admin.reports.page_title") %>"></span>
+      <span id="js-selected-translation_reports-count" class="component-counter " title="<%= t("decidim.admin.reports.page_title") %>"></span>
     </div>
 
   </h1>
 </div>
 
-<%#= admin_filter_selector(:moderated_users) %>
+<%= admin_filter_selector(:translation_reports) %>
 <div class="table-scroll">
   <table class="table-list">
     <thead>
     <tr>
       <th><%= t(".id") %></th>
-      <th><%= t(".reported_resource_id") %></th>
       <th><%= t(".reporter_id") %></th>
-      <th><%= t(".resource_url") %></th>
+      <th><%= t(".reported_resource_id") %></th>
       <th><%= t(".report_reason") %></th>
       <th><%= t(".created_at") %></th>
-      <th><%= t(".fix_suggestion") %></th>
+      <th><%= t(".field_name") %></th>
+      <th><%= t(".locale") %></th>
       <th><%= t(".translation_counter") %></th>
       <th><%= t(".actions") %></th>
     </tr>
@@ -29,16 +29,16 @@
     <% @reports.each do |report| %>
       <tr data-id="<%= report.id %>">
           <td><%= report.id %></td>
-          <td><%= report.decidim_resource_id %></td>
           <td><%= report.decidim_user_id %></td>
-          <td><%= "URL for #{report.decidim_resource_id}" %></td>
+          <td><%= link_to report.resource.id, resource_locator(report.resource).path %></td>
           <td><%= report.reason.capitalize %></td>
           <td> <%= l report.created_at, format: :decidim_short %></td>
-          <td> <%= report.fix_suggestion %></td>
+          <td> <%= report.field_name.capitalize %></td>
+          <td> <%= report.locale %></td>
           <td> <%= report.auto_translation_failed_count %></td>
           <td>
-            <%= icon_link_to "arrow-go-back-line", decidim_admin_translation_addons.root_path, t(".unreport"), class: "action-icon--unreport", method: :put %>
-            <%= icon_link_to "pencil-line", decidim_admin_translation_addons.root_path, t(".configure"), class: "action-icon--expand" %>
+            <%= icon_link_to "arrow-go-back-line", decidim_admin_translation_addons.unreport_report_path(id: report.id), t(".unreport"), class: "action-icon--unreport", method: :put %>
+            <%= icon_link_to "pencil-line", decidim_admin_translation_addons.configure_report_path(id: report.id), t(".configure"), class: "action-icon--expand" %>
             <%= icon_link_to "refresh-line", decidim_admin_translation_addons.root_path, t(".auto_translate"), method: :patch, class: "action-icon--restore" %>
           </td>
       </tr>
@@ -46,4 +46,4 @@
     </tbody>
   </table>
 </div>
-<%#= decidim_paginate @reports %>
+<%= decidim_paginate @reports %>

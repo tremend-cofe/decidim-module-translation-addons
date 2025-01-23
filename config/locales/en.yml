@@ -4,15 +4,30 @@ en:
     admin:
       reports:
         page_title: Translation Reports
+        details_page_title: Report details
+      filters:
+        search_placeholder:
+          reason_or_field_or_reported_recource_id: Search Reports by reason, field name, or reported resource ID
+        translation_reports:
+          reports_reason_eq:
+            label: Reason
     translation_addons:
       admin:
         reports:
+          configure:
+            id: ID
+            unreport: Unreport
+            accept: Accept
+            page_title: Translation Reports
+            details_page_title: Report details
           index:
             actions: Actions
             id: ID
             unreport: Unreport
             auto_translate: Run translation service
             configure: Configure
+            field_name: Field
+            locale: Language
             reported_resource_id: Reported resource ID
             reporter_id: Reporter ID
             resource_url: Resource URL

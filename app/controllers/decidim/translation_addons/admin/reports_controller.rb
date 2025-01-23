@@ -6,11 +6,15 @@ module Decidim
       # Controller used to manage translation reports for the current
       # organization
       class ReportsController < Decidim::TranslationAddons::Admin::ApplicationController
-        include Decidim::PaginateHelper
-        # include Decidim::Moderations::Admin::Filterable // To be implemented for Decidim::TranslationAddons::Admin::Filterable
+        helper Decidim::PaginateHelper
+        helper Decidim::ResourceHelper
+        include Decidim::TranslationAddons::Admin::Filterable
+
+        layout "decidim/admin/global_moderations"
+        before_action :set_translation_breadcrumb_item
 
         def index
-          @reports = Decidim::TranslationAddons::Report.all
+          @reports = filtered_collection
         end
 
         def unreport
@@ -28,6 +32,30 @@ module Decidim
               redirect_to reports_path
             end
           end
+        end
+
+        def configure
+          @report = Decidim::TranslationAddons::Report.find_by(id: params[:id])
+        end
+
+        def base_query_finder
+          Decidim::TranslationAddons::Report.all
+        end
+
+        def collection
+          @collection ||= Decidim::TranslationAddons::Report.all
+        end
+
+        def translation_reports
+          @reports ||= filtered_collection
+        end
+
+        def set_translation_breadcrumb_item
+          controller_breadcrumb_items << {
+              label: t("decidim.admin.reports.page_title"),
+              url: decidim_admin_translation_addons.root_path,
+              active: true
+          }
         end
       end
     end

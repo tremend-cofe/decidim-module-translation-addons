@@ -13,6 +13,7 @@ module Decidim
         resources :reports, only: [:index] do
           member do
             put :unreport
+            get :configure
           end
         end
         root to: "reports#index"
@@ -29,7 +30,7 @@ module Decidim
           menu.add_item :translation_moderation,
                         t("decidim.admin.reports.page_title"),
                         decidim_admin_translation_addons.root_path,
-                        position: 1.3,
+                        position: 3,
                         active: is_active_link?(decidim_admin_translation_addons.root_path)
         end
       end
