@@ -10,7 +10,11 @@ module Decidim
       paths["lib/tasks"] = nil
 
       routes do
-        resource :reports, only: [:index]
+        resources :reports, only: [:index] do
+          member do
+            put :unreport
+          end
+        end
         root to: "reports#index"
       end
 
