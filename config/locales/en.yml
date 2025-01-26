@@ -28,13 +28,16 @@ en:
             configure: Configure
             field_name: Field
             locale: Language
-            reported_resource_id: Reported resource ID
+            reported_resource_id: Resource ID
+            reported_resource_type: Resource type
             reporter_id: Reporter ID
             resource_url: Resource URL
             report_reason: Reason
-            created_at: Created_at
+            created_at: Created at
+            updated_at: Updated at
             fix_suggestion: Translation suggestion
-            translation_counter: Translation failed counter
+            translation_counter: Translation retry counter
+            translation_last_retry_on: Last Translation retry
 
     shared:
       flag_modal:
