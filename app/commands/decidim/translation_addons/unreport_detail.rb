@@ -3,30 +3,34 @@
 module Decidim
   module TranslationAddons
     class UnreportDetail < Decidim::Command
-      def initialize(report, current_user)
-        @report = report
+      def initialize(report_detail, current_user)
+        @report_detail = report_detail
         @current_user = current_user
       end
 
       def call
-        return broadcast(:invalid) if @report.blank? || @current_user.blank?
+        return broadcast(:invalid) if @report_detail.blank? || @current_user.blank?
 
-        unreport
+        unreport_detail
         broadcast(:ok)
       end
 
       private
 
-      attr_reader :resource_instance, :report, :current_user
+      attr_reader :report_detail, :current_user
 
-      def unreport
+      def unreport_detail
         Decidim.traceability.perform_action!(
-          :unreport,
-          @report,
+          :unreport_detail,
+          @report_detail,
           @current_user,
-          resource_type: @report.report.class.name, resource_id: @report.report.id, fix_suggestion: @report.fix_suggestion, user_id: @report.user.id
+          {
+            report_id: @report_detail.report.id,
+            fix_suggestion: @report_detail.fix_suggestion,
+            user_id: @report_detail.user.id
+          }
         ) do
-          @report.destroy!
+          @report_detail.destroy!
         end
       end
     end
