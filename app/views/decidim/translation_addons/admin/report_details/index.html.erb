@@ -13,13 +13,13 @@
   <table class="table-list">
     <thead>
     <tr>
-      <th><%= t(".id") %></th>
-      <th><%= t(".reporter_id") %></th>
+      <th><%= sort_link(query, :id, t(".id")) %></th>
+      <th><%= sort_link(query, :decidim_user_id, t(".reporter_id")) %></th>
       <th><%= t(".reason") %></th>
       <th><%= t(".field_name") %></th>
       <th><%= t(".fix_suggestion") %></th>
       <th><%= t(".locale") %></th>
-      <th><%= t(".created_at") %></th>
+      <th><%= sort_link(query, :created_at, t(".created_at")) %></th>
       <th><%= t(".actions") %></th>
     </tr>
     </thead>
@@ -35,9 +35,9 @@
         <td> <%= l report_detail.created_at, format: :decidim_short %></td>
         <td>
           <div class="mb-3">
-            <%= icon_link_to "check-line", decidim_admin_translation_addons.accept_report_detail_path(id: report_detail.id), t(".accept"), class: "action-icon--accept", method: :post %>
+            <%= icon_link_to "check-line", decidim_admin_translation_addons.accept_report_report_detail_path(id: report_detail.id), t(".accept"), class: "action-icon--accept", method: :post %>
           </div>
-            <%= icon_link_to "close-line", decidim_admin_translation_addons.decline_report_detail_path(id: report_detail.id), t(".decline"), class: "action-icon--decline", method: :put %>
+            <%= icon_link_to "close-line", decidim_admin_translation_addons.decline_report_report_detail_path(id: report_detail.id), t(".decline"), class: "action-icon--decline", method: :put %>
         </td>
       </tr>
     <% end %>

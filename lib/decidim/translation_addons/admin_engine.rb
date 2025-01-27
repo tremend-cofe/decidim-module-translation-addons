@@ -11,18 +11,16 @@ module Decidim
 
       routes do
         resources :reports, only: [:index] do
+          resources :report_details, only: [:index] do
+            member do
+              put :decline
+              post :accept
+            end
+          end
           member do
             put :unreport
           end
         end
-
-        resources :report_details, only: [:index] do
-          member do
-            put :decline
-            post :accept
-          end
-        end
-
         root to: "reports#index"
       end
 

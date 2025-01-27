@@ -2,54 +2,23 @@
 en:
   decidim:
     admin:
-      reports:
-        page_title: Translation Reports
-        details_page_title: Report details
       filters:
+        report_details:
+          reason_eq:
+            label: Reason
+          report_locale_eq:
+            label: Locale
         search_placeholder:
           field_name_cont: Search Reports by field name
+          report_field_name_cont: Search Reports by field name
         translation_reports:
           decidim_resource_type_eq:
             label: Report Resource Type
           locale_eq:
             label: Locale
-    translation_addons:
-      admin:
-        report_details:
-          index:
-            actions: Actions
-            decline: Decline report
-            id: ID
-            unreport: Unreport
-            reporter_id: Reporter ID
-            reason: Reason
-            locale: Locale
-            field_name: Field
-            fix_suggestion: Translation suggestion
-            created_at: Created at
-            accept: Accept sugesstion
-            page_title: Translation Reports
-            details_page_title: Report details
-        reports:
-          index:
-            actions: Actions
-            id: ID
-            unreport: Unreport
-            auto_translate: Run translation service
-            configure: Configure
-            field_name: Field
-            locale: Language
-            reported_resource_id: Resource ID
-            reported_resource_type: Resource type
-            reporter_id: Reporter ID
-            resource_url: Resource URL
-            report_reason: Reason
-            created_at: Created at
-            updated_at: Updated at
-            fix_suggestion: Translation suggestion
-            translation_counter: Translation retry counter
-            translation_last_retry_on: Last Translation retry
-
+      reports:
+        details_page_title: Report details
+        page_title: Translation Reports
     shared:
       flag_modal:
         translation:
@@ -64,3 +33,39 @@ en:
           title: Report wrong translation
           value: 'The current value of the selected field is:'
           wrong: The selected field contains a wrong translation
+    translation_addons:
+      admin:
+        report_details:
+          index:
+            accept: Accept sugesstion
+            actions: Actions
+            created_at: Created at
+            decline: Decline report
+            details_page_title: Report details
+            field_name: Field
+            fix_suggestion: Translation suggestion
+            id: ID
+            locale: Locale
+            page_title: Translation Reports
+            reason: Reason
+            reporter_id: Reporter ID
+            unreport: Unreport
+        reports:
+          index:
+            actions: Actions
+            auto_translate: Run translation service
+            configure: Configure
+            created_at: Created at
+            field_name: Field
+            fix_suggestion: Translation suggestion
+            id: ID
+            locale: Language
+            report_reason: Reason
+            reported_resource_id: Resource ID
+            reported_resource_type: Resource type
+            reporter_id: Reporter ID
+            resource_url: Resource URL
+            translation_counter: Translation retry counter
+            translation_last_retry_on: Last Translation retry
+            unreport: Unreport
+            updated_at: Updated at

@@ -18,16 +18,16 @@ module Decidim
         end
 
         def accept
-          report = Decidim::TranslationAddons::ReportDetail.find params[:id]
+          report = Decidim::TranslationAddons::ReportDetail.find params[:report_id]
           # WIP
         end
 
         def decline
           # enforce_permission_to :unreport, authorization_scope
   
-          report = Decidim::TranslationAddons::ReportDetail.find params[:id]
+          report = Decidim::TranslationAddons::ReportDetail.find params[:report_id]
           # WIP
-          Decidim::TranslationAddons::Unreport.call(report, current_user) do
+          Decidim::TranslationAddons::UnreportDetail.call(report, current_user) do
             on(:ok) do
               flash[:notice] = I18n.t("reportable.unreport.success", scope: "decidim.moderations.admin")
               redirect_to report_details_path
@@ -42,11 +42,11 @@ module Decidim
 
 
         def base_query_finder
-          Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:id])
+          Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id])
         end
 
         def collection
-          @collection ||= Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:id])
+          @collection ||= Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id])
         end
 
         def report_details
