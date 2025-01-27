@@ -19,7 +19,7 @@ module Decidim
 
         def unreport
           # enforce_permission_to :unreport, authorization_scope
-  
+
           report = Decidim::TranslationAddons::Report.find params[:id]
           Decidim::TranslationAddons::Unreport.call(report, current_user) do
             on(:ok) do
@@ -52,9 +52,9 @@ module Decidim
 
         def set_translation_breadcrumb_item
           controller_breadcrumb_items << {
-              label: t("decidim.admin.reports.page_title"),
-              url: decidim_admin_translation_addons.root_path,
-              active: true
+            label: t("decidim.admin.reports.page_title"),
+            url: decidim_admin_translation_addons.root_path,
+            active: true
           }
         end
       end

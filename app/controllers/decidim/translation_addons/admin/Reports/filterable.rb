@@ -20,23 +20,22 @@ module Decidim
 
             def add_filters
               [
-                  :decidim_resource_type_eq,
-                  :locale_eq
+                :decidim_resource_type_eq,
+                :locale_eq
               ]
             end
 
             def filters_with_values
               {
-                  decidim_resource_type_eq: reported_resource_type,
-                  locale_eq: available_locale,
+                decidim_resource_type_eq: reported_resource_type,
+                locale_eq: available_locale
 
               }
             end
 
             def dynamically_translated_filters
               [:decidim_resource_type_eq,
-               :locale_eq
-              ]
+               :locale_eq]
             end
 
             def translated_decidim_resource_type_eq(value)
@@ -46,7 +45,6 @@ module Decidim
             def translated_locale_eq(value)
               value.capitalize
             end
-
 
             def search_field_predicate
               :field_name_cont

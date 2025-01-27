@@ -14,6 +14,7 @@ module Decidim
 
       def call
         return broadcast(:invalid) if @resource_instance.blank? || @field.blank? || @locale.blank? || @current_user.blank? || @reason.blank?
+
         create_report
         broadcast(:ok)
       end
@@ -29,14 +30,14 @@ module Decidim
           @current_user,
           visibility: "public-only"
         ) do
-
-          report = Decidim::TranslationAddons::Report.where(decidim_resource_id: resource_instance.id, decidim_resource_type: resource_instance.class.name, field_name: field, locale: locale).first
+          report = Decidim::TranslationAddons::Report.where(decidim_resource_id: resource_instance.id, decidim_resource_type: resource_instance.class.name, field_name: field,
+                                                            locale:).first
           if report.blank?
             report = Decidim::TranslationAddons::Report.new(
               decidim_resource_type: resource_instance.class.name,
               decidim_resource_id: resource_instance.id,
               field_name: field,
-              locale: locale,
+              locale:
             )
             report.save!
           end
@@ -45,8 +46,8 @@ module Decidim
             detail = Decidim::TranslationAddons::ReportDetail.new(
               decidim_user_id: current_user.id,
               decidim_translation_addons_report_id: report.id,
-              reason: reason,
-              fix_suggestion: fix_suggestion
+              reason:,
+              fix_suggestion:
             )
             detail.save!
           end

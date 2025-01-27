@@ -18,13 +18,13 @@ module Decidim
         end
 
         def accept
-          report = Decidim::TranslationAddons::ReportDetail.find params[:report_id]
+          Decidim::TranslationAddons::ReportDetail.find params[:report_id]
           # WIP
         end
 
         def decline
           # enforce_permission_to :unreport, authorization_scope
-  
+
           report = Decidim::TranslationAddons::ReportDetail.find params[:id]
 
           Decidim::TranslationAddons::UnreportDetail.call(report, current_user) do
@@ -40,7 +40,6 @@ module Decidim
           end
         end
 
-
         def base_query_finder
           Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id])
         end
@@ -55,9 +54,9 @@ module Decidim
 
         def set_translation_details_breadcrumb_item
           controller_breadcrumb_items << {
-              label: t("decidim.admin.reports.details_page_title"),
-              url: decidim_admin_translation_addons.root_path,
-              active: true
+            label: t("decidim.admin.reports.details_page_title"),
+            url: decidim_admin_translation_addons.root_path,
+            active: true
           }
         end
       end

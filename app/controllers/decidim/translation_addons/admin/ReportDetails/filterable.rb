@@ -14,28 +14,27 @@ module Decidim
 
             private
 
-          def base_query
-            collection
-          end
+            def base_query
+              collection
+            end
 
             def filters
               [
-                  :reason_eq,
-                  :report_locale_eq
+                :reason_eq,
+                :report_locale_eq
               ]
             end
 
             def filters_with_values
               {
-                 reason_eq: report_reasons,
-                 report_locale_eq: available_locales
+                reason_eq: report_reasons,
+                report_locale_eq: available_locales
               }
             end
 
             def dynamically_translated_filters
-              [ :reason_eq,
-                :report_locale_eq
-              ]
+              [:reason_eq,
+               :report_locale_eq]
             end
 
             def search_field_predicate

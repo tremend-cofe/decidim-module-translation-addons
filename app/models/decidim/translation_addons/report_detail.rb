@@ -13,9 +13,7 @@ module Decidim
       after_destroy :delete_parent
 
       def delete_parent
-        if self.report.details.none?
-          self.report.destroy
-        end
+        report.destroy if report.details.none?
       end
     end
   end
