@@ -41,7 +41,7 @@
           <td>
             <%= icon_link_to "arrow-go-back-line", decidim_admin_translation_addons.unreport_report_path(id: report.id), t(".unreport"), class: "action-icon--unreport", method: :put %>
             <%= icon_link_to "pencil-line", decidim_admin_translation_addons.report_report_details_path(report_id: report.id), t(".configure"), class: "action-icon--configure" %>
-            <%= icon_link_to "refresh-line", decidim_admin_translation_addons.root_path, t(".auto_translate"), method: :patch, class: "action-icon--translate" %>
+            <%= icon_link_to "refresh-line", decidim_admin_translation_addons.request_translation_report_path(id: report.id), t(".auto_translate"), method: :post, class: "action-icon--translate" %>
           </td>
       </tr>
     <% end %>

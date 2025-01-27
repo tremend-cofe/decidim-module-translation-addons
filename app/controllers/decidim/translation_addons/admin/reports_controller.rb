@@ -34,6 +34,21 @@ module Decidim
           end
         end
 
+        def request_translation
+          report = Decidim::TranslationAddons::Report.find params[:id]
+          Decidim::TranslationAddons::RequestTranslation.call(report, current_user) do
+            on(:ok) do
+              flash[:notice] = I18n.t("reportable.unreport.success", scope: "decidim.moderations.admin")
+              redirect_to reports_path
+            end
+
+            on(:invalid) do
+              flash.now[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
+              redirect_to reports_path
+            end
+          end
+        end
+
         def configure
           @report_details = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:id])
         end

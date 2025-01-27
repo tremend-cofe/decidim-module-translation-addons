@@ -19,6 +19,7 @@ module Decidim
           end
           member do
             put :unreport
+            post :request_translation
           end
         end
         root to: "reports#index"
