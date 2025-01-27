@@ -31,7 +31,7 @@
       <tr data-id="<%= report.id %>">
           <td><%= report.id %></td>
           <td><%= link_to report.resource.id, resource_locator(report.resource).path %></td>
-          <td> <%= report.resource.class.name.capitalize %></td>
+          <td> <%= report.resource.class.name.demodulize %></td>
           <td> <%= report.field_name.capitalize %></td>
           <td> <%= report.locale %></td>
           <td> <%= report.auto_translation_retry_count %></td>
@@ -40,7 +40,7 @@
           <td> <%= l report.updated_at, format: :decidim_short %></td>
           <td>
             <%= icon_link_to "arrow-go-back-line", decidim_admin_translation_addons.unreport_report_path(id: report.id), t(".unreport"), class: "action-icon--unreport", method: :put %>
-            <%= icon_link_to "pencil-line", decidim_admin_translation_addons.configure_report_path(id: report.id), t(".configure"), class: "action-icon--expand" %>
+            <%= icon_link_to "pencil-line", decidim_admin_translation_addons.report_details_path(id: report.id), t(".configure"), class: "action-icon--expand" %>
             <%= icon_link_to "refresh-line", decidim_admin_translation_addons.root_path, t(".auto_translate"), method: :patch, class: "action-icon--restore" %>
           </td>
       </tr>

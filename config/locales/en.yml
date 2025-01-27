@@ -13,13 +13,22 @@ en:
             label: Reason
     translation_addons:
       admin:
-        reports:
-          configure:
+        report_details:
+          index:
+            actions: Actions
+            decline: Decline report
             id: ID
             unreport: Unreport
-            accept: Accept
+            reporter_id: Reporter ID
+            reason: Reason
+            locale: Locale
+            field_name: Field
+            fix_suggestion: Translation suggestion
+            created_at: Created at
+            accept: Accept sugesstion
             page_title: Translation Reports
             details_page_title: Report details
+        reports:
           index:
             actions: Actions
             id: ID

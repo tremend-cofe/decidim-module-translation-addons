@@ -5,6 +5,7 @@ require "active_support/concern"
 module Decidim
   module TranslationAddons
     module Admin
+    module ReportDetails
       module Filterable
         extend ActiveSupport::Concern
 
@@ -46,6 +47,7 @@ module Decidim
           end
         end
       end
+    end
     end
   end
 end

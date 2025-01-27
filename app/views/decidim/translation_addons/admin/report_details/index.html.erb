@@ -1,0 +1,47 @@
+<% add_decidim_page_title(t("decidim.admin.reports.details_page_title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <div>
+      <%= link_to "#{t("decidim.admin.reports.page_title")} > ", decidim_admin_translation_addons.root_path %>
+      <%= t("decidim.admin.reports.details_page_title") %>
+    </div>
+  </h1>
+</div>
+
+<%#= admin_filter_selector(:translation_report_details) %>
+<div class="table-scroll">
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= t(".id") %></th>
+      <th><%= t(".reporter_id") %></th>
+      <th><%= t(".reason") %></th>
+      <th><%= t(".field_name") %></th>
+      <th><%= t(".fix_suggestion") %></th>
+      <th><%= t(".locale") %></th>
+      <th><%= t(".created_at") %></th>
+      <th><%= t(".actions") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @report_details.each do |report_detail| %>
+      <tr data-id="<%= report_detail.id %>">
+        <td><%= report_detail.id %></td>
+        <td><%= report_detail.decidim_user_id %></td>
+        <td> <%= report_detail.reason.capitalize %></td>
+        <td> <%= report_detail.report.field_name.capitalize %></td>
+        <td> <%= report_detail.fix_suggestion %></td>
+        <td> <%= report_detail.report.locale %></td>
+        <td> <%= l report_detail.created_at, format: :decidim_short %></td>
+        <td>
+          <div class="mb-3">
+            <%= icon_link_to "check-line", decidim_admin_translation_addons.accept_report_detail_path(id: report_detail.id), t(".accept"), class: "action-icon--accept", method: :post %>
+          </div>
+            <%= icon_link_to "close-line", decidim_admin_translation_addons.decline_report_detail_path(id: report_detail.id), t(".decline"), class: "action-icon--decline", method: :put %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= decidim_paginate @report_details %>

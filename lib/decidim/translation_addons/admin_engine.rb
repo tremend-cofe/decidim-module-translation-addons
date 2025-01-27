@@ -13,9 +13,16 @@ module Decidim
         resources :reports, only: [:index] do
           member do
             put :unreport
-            get :configure
           end
         end
+
+        resources :report_details, only: [:index] do
+          member do
+            put :decline
+            post :accept
+          end
+        end
+
         root to: "reports#index"
       end
 
