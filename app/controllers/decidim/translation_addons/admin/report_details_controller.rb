@@ -25,17 +25,17 @@ module Decidim
         def decline
           # enforce_permission_to :unreport, authorization_scope
   
-          report = Decidim::TranslationAddons::ReportDetail.find params[:report_id]
-          # WIP
+          report = Decidim::TranslationAddons::ReportDetail.find params[:id]
+
           Decidim::TranslationAddons::UnreportDetail.call(report, current_user) do
             on(:ok) do
               flash[:notice] = I18n.t("reportable.unreport.success", scope: "decidim.moderations.admin")
-              redirect_to report_details_path
+              redirect_to report_report_details_path
             end
 
             on(:invalid) do
               flash.now[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
-              redirect_to report_details_path
+              redirect_to report_report_details_path
             end
           end
         end
