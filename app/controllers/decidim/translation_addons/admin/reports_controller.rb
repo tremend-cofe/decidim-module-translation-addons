@@ -46,7 +46,7 @@ module Decidim
           @collection ||= Decidim::TranslationAddons::Report.all
         end
 
-        def translation_reports
+        def reports
           @reports ||= filtered_collection
         end
 

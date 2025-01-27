@@ -7,10 +7,12 @@ en:
         details_page_title: Report details
       filters:
         search_placeholder:
-          reason_or_field_or_reported_recource_id: Search Reports by reason, field name, or reported resource ID
+          field_name_cont: Search Reports by field name
         translation_reports:
-          reports_reason_eq:
-            label: Reason
+          decidim_resource_type_eq:
+            label: Report Resource Type
+          locale_eq:
+            label: Locale
     translation_addons:
       admin:
         report_details:

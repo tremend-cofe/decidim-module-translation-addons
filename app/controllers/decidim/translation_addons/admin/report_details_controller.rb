@@ -49,7 +49,7 @@ module Decidim
           @collection ||= Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:id])
         end
 
-        def translation_details
+        def report_details
           @report_details ||= filtered_collection
         end
 

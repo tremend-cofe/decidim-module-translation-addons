@@ -14,15 +14,15 @@
   <table class="table-list">
     <thead>
     <tr>
-      <th><%= t(".id") %></th>
-      <th><%= t(".reported_resource_id") %></th>
+      <th><%= sort_link(query, :id, t(".id")) %></th>
+      <th><%= sort_link(query, :decidim_resource_id, t(".reported_resource_id")) %></th>
       <th><%= t(".reported_resource_type") %></th>
       <th><%= t(".field_name") %></th>
       <th><%= t(".locale") %></th>
-      <th><%= t(".translation_counter") %></th>
-      <th><%= t(".translation_last_retry_on") %></th>
-      <th><%= t(".created_at") %></th>
-      <th><%= t(".updated_at") %></th>
+      <th><%= sort_link(query, :auto_translation_retry_count, t(".translation_counter")) %></th>
+      <th><%= sort_link(query, :translation_last_retry_on, t(".translation_last_retry_on")) %></th>
+      <th><%= sort_link(query, :created_at, t(".created_at")) %></th>
+      <th><%= sort_link(query, :updated_at, t(".updated_at")) %></th>
       <th><%= t(".actions") %></th>
     </tr>
     </thead>

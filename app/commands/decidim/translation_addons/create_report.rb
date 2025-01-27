@@ -13,7 +13,7 @@ module Decidim
       end
 
       def call
-        return broadcast(:invalid) if @resource_instance.blank? || @field.blank? || @locale.blank? || @current_user.blank? || @fix_suggestion.blank? || @reason.blank?
+        return broadcast(:invalid) if @resource_instance.blank? || @field.blank? || @locale.blank? || @current_user.blank? || @reason.blank?
         create_report
         broadcast(:ok)
       end
