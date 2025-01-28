@@ -2,6 +2,15 @@
 en:
   decidim:
     admin:
+      accept_translation_modal:
+        field_name_label: "Reported field: "
+        locale_label: "Language for the report: "
+        translation_label: "Please insert the correct value for the translation: "
+        report_suggestion_label: "The translation suggested by the reporter: "
+        cancel: Cancel
+        accept: Save
+        title: Accept translation report
+        description: Please review and insert the correct value for the translation
       translation_request:
         success: The translation request was created successfully
         invalid: There was a problem with the translation request

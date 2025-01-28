@@ -61,7 +61,7 @@
         <td> <%= l report_detail.created_at, format: :decidim_short %></td>
         <td>
           <div class="mb-3">
-            <%= icon_link_to "check-line", decidim_admin_translation_addons.accept_report_report_detail_path(id: report_detail.id), t(".accept"), class: "action-icon--accept", method: :post %>
+            <%= cell "decidim/translation_addons/accept_translation_button", report_detail %>
           </div>
             <%= icon_link_to "close-line", decidim_admin_translation_addons.decline_report_report_detail_path(id: report_detail.id), t(".decline"), class: "action-icon--decline", method: :put %>
         </td>
