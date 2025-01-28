@@ -5,6 +5,8 @@ en:
       translation_request:
         success: The translation request was created successfully
         invalid: There was a problem with the translation request
+        not_missing: Field is not missing
+        missing_default_locale: Can't find default locale
       unreport:
         success: The unreport was performed sucessfully
         invalid: There was a problem when perfoming the unreport

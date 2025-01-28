@@ -43,12 +43,12 @@ module Decidim
             end
 
             on(:not_missing) do
-              flash[:alert] = "Field is not missing."
+              flash[:alert] = I18n.t("translation_request.not_missing", scope: "decidim.admin")
               redirect_to reports_path
             end
 
             on(:missing_default_locale) do
-              flash[:alert] = "Can't find default locale"
+              flash[:alert] = I18n.t("translation_request.missing_default_locale", scope: "decidim.admin")
               redirect_to reports_path
             end
 
