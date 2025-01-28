@@ -2,6 +2,19 @@
 en:
   decidim:
     admin:
+      translation_request:
+        success: The translation request was created successfully
+        invalid: There was a problem with the translation request
+      unreport:
+        success: The unreport was performed sucessfully
+        invalid: There was a problem when perfoming the unreport
+      report_details:
+        accept:
+          success: The translation report was accepted
+          invalid: There was a problem when accepting the translation request
+        decline:
+          success: The translation report was rejected
+          invalid: There was a problem in rejecting the translation report
       filters:
         report_details:
           reason_eq:

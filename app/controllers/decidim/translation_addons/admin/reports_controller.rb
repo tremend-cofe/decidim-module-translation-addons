@@ -23,12 +23,12 @@ module Decidim
           report = Decidim::TranslationAddons::Report.find params[:id]
           Decidim::TranslationAddons::Unreport.call(report, current_user) do
             on(:ok) do
-              flash[:notice] = I18n.t("reportable.unreport.success", scope: "decidim.moderations.admin")
+              flash[:notice] = I18n.t("unreport.success", scope: "decidim.admin")
               redirect_to reports_path
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
+              flash.now[:alert] = I18n.t("unreport.invalid", scope: "decidim.admin")
               redirect_to reports_path
             end
           end
@@ -38,12 +38,12 @@ module Decidim
           report = Decidim::TranslationAddons::Report.find params[:id]
           Decidim::TranslationAddons::RequestTranslation.call(report, current_user) do
             on(:ok) do
-              flash[:notice] = I18n.t("reportable.unreport.success", scope: "decidim.moderations.admin")
+              flash[:notice] = I18n.t("translation_request.success", scope: "decidim.admin")
               redirect_to reports_path
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
+              flash[:alert] = I18n.t("translation_request.invalid", scope: "decidim.admin")
               redirect_to reports_path
             end
           end
