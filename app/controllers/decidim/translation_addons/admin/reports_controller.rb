@@ -42,6 +42,16 @@ module Decidim
               redirect_to reports_path
             end
 
+            on(:not_missing) do
+              flash[:alert] = "Field is not missing."
+              redirect_to reports_path
+            end
+
+            on(:missing_default_locale) do
+              flash[:alert] = "Can't find default locale"
+              redirect_to reports_path
+            end
+
             on(:invalid) do
               flash[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
               redirect_to reports_path
