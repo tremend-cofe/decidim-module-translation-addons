@@ -26,8 +26,11 @@ module Decidim
           @current_user,
           {
             report_id: @report_detail.report.id,
+            resource_type: @report_detail.report.class.name,
+            resource_id: @report_detail.report.id,
+            locale: @report_detail.report.locale,
             fix_suggestion: @report_detail.fix_suggestion,
-            user_id: @report_detail.user.id
+            user_id: @report_detail.decidim_user_id
           }
         ) do
           @report_detail.destroy!
