@@ -18,8 +18,20 @@ module Decidim
         end
 
         def accept
+          # WIP --------------------------------------------------------
           Decidim::TranslationAddons::ReportDetail.find params[:report_id]
-          # WIP
+
+          Decidim::TranslationAddons::AcceptReportDetail.call(report, current_user) do
+            on(:ok) do
+              flash[:notice] = I18n.t("report_details.accept.success", scope: "decidim.admin")
+              redirect_to report_report_details_path
+            end
+
+            on(:invalid) do
+              flash[:alert] = I18n.t("report_details.accept.invalid", scope: "decidim.admin")
+              redirect_to report_report_details_path
+            end
+          end
         end
 
         def decline
@@ -29,12 +41,12 @@ module Decidim
 
           Decidim::TranslationAddons::UnreportDetail.call(report, current_user) do
             on(:ok) do
-              flash[:notice] = I18n.t("reportable.unreport.success", scope: "decidim.moderations.admin")
+              flash[:notice] = I18n.t("report_details.decline.success", scope: "decidim.admin")
               redirect_to report_report_details_path
             end
 
             on(:invalid) do
-              flash[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
+              flash[:alert] = I18n.t("report_details.decline.invalid", scope: "decidim.admin")
               redirect_to report_report_details_path
             end
           end

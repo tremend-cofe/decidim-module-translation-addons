@@ -35,7 +35,7 @@
           <td> <%= report.field_name.capitalize %></td>
           <td> <%= report.locale %></td>
           <td> <%= report.auto_translation_retry_count %></td>
-          <td> <%= report.translation_last_retry_on || "-" %></td>
+          <td> <%= report.translation_last_retry_on ? (l report.translation_last_retry_on, format: :decidim_short) : "-" %></td>
           <td> <%= l report.created_at, format: :decidim_short %></td>
           <td> <%= l report.updated_at, format: :decidim_short %></td>
           <td>

@@ -2,6 +2,19 @@
 en:
   decidim:
     admin:
+      translation_request:
+        success: The translation request was created successfully
+        invalid: There was a problem with the translation request
+      unreport:
+        success: The unreport was performed sucessfully
+        invalid: There was a problem when perfoming the unreport
+      report_details:
+        accept:
+          success: The translation report was accepted
+          invalid: There was a problem when accepting the translation request
+        decline:
+          success: The translation report was rejected
+          invalid: There was a problem in rejecting the translation report
       filters:
         report_details:
           reason_eq:
@@ -10,7 +23,7 @@ en:
             label: Locale
         search_placeholder:
           field_name_cont: Search Reports by field name
-          report_field_name_cont: Search Reports by field name
+          decidim_user_id_eq: Search Reports by reporter ID
         translation_reports:
           decidim_resource_type_eq:
             label: Report Resource Type
@@ -19,6 +32,8 @@ en:
       reports:
         details_page_title: Report details
         page_title: Translation Reports
+        table_title: Report data
+        table_details_title: Report details
     shared:
       flag_modal:
         translation:
@@ -48,6 +63,8 @@ en:
             locale: Locale
             page_title: Translation Reports
             reason: Reason
+            reported_resource_id: Reported resource ID
+            reported_resource_type: Reported resource type
             reporter_id: Reporter ID
             unreport: Unreport
         reports:
