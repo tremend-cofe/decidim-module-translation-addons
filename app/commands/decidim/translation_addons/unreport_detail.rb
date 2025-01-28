@@ -27,10 +27,13 @@ module Decidim
           {
             report_id: @report_detail.report.id,
             resource_type: @report_detail.report.class.name,
+            field_name: @report_detail.report.field_name,
             resource_id: @report_detail.report.id,
             locale: @report_detail.report.locale,
             fix_suggestion: @report_detail.fix_suggestion,
-            user_id: @report_detail.decidim_user_id
+            reporting_user_id: @report_detail.decidim_user_id,
+            action_user_id: @current_user_id
+
           }
         ) do
           @report_detail.destroy!
