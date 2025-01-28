@@ -9,7 +9,10 @@ module Decidim
       end
 
       def call
-        return broadcast(:invalid) if @report.blank? || @current_user.blank?
+        default_locale = report.resource.respond_to?(:organization) ? report.resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
+        if @report.blank? || @current_user.blank? || @report.resource[@report.field_name][@report.locale].present? || @report.resource[@report.field_name][default_locale].blank?
+          return broadcast(:invalid)
+        end
 
         request_translation
         broadcast(:ok)
@@ -29,15 +32,11 @@ module Decidim
           report.auto_translation_retry_count += 1
           report.translation_last_retry_on = Time.current
           report.save!
-          source_locale = report.resource.respond_to?(:organization) ? resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
+          source_locale = report.resource.respond_to?(:organization) ? report.resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
           Decidim::MachineTranslationFieldsJob.perform_later(
             report.resource,
             report.field_name,
-            resource_field_value(
-              previous_changes,
-              field,
-              source_locale
-            ),
+            report.resource[report.resource.field_name][source_locale],
             report.locale,
             source_locale
           )

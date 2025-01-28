@@ -28,7 +28,7 @@ module Decidim
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
+              flash[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
               redirect_to reports_path
             end
           end
@@ -43,7 +43,7 @@ module Decidim
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
+              flash[:alert] = I18n.t("reportable.unreport.invalid", scope: "decidim.moderations.admin")
               redirect_to reports_path
             end
           end
