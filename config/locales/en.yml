@@ -16,6 +16,7 @@ en:
           invalid: There was a problem when accepting the translation request
         decline:
           success: The translation report was rejected
+          success_with_report_deleted: The translation report was rejected and report was deleted
           invalid: There was a problem in rejecting the translation report
       filters:
         report_details:

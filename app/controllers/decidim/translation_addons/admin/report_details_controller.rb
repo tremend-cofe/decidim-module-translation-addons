@@ -41,8 +41,14 @@ module Decidim
 
           Decidim::TranslationAddons::UnreportDetail.call(report, current_user) do
             on(:ok) do
-              flash[:notice] = I18n.t("report_details.decline.success", scope: "decidim.admin")
-              redirect_to report_report_details_path
+              report = Decidim::TranslationAddons::ReportDetail.where(id: params[:id]).first
+              if report.present?
+                flash[:notice] = I18n.t("report_details.decline.success", scope: "decidim.admin")
+                redirect_to report_report_details_path
+              else
+                flash[:notice] = I18n.t("report_details.decline.success_with_report_deleted", scope: "decidim.admin")
+                redirect_to reports_path()
+              end
             end
 
             on(:invalid) do
