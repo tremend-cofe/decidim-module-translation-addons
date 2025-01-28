@@ -23,7 +23,7 @@ en:
             label: Locale
         search_placeholder:
           field_name_cont: Search Reports by field name
-          report_field_name_cont: Search Reports by field name
+          decidim_user_id_eq: Search Reports by reporter ID
         translation_reports:
           decidim_resource_type_eq:
             label: Report Resource Type
@@ -32,6 +32,8 @@ en:
       reports:
         details_page_title: Report details
         page_title: Translation Reports
+        table_title: Report data
+        table_details_title: Report details
     shared:
       flag_modal:
         translation:
@@ -61,6 +63,8 @@ en:
             locale: Locale
             page_title: Translation Reports
             reason: Reason
+            reported_resource_id: Reported resource ID
+            reported_resource_type: Reported resource type
             reporter_id: Reporter ID
             unreport: Unreport
         reports:

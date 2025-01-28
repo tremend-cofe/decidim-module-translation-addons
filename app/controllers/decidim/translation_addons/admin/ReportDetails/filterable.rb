@@ -20,29 +20,22 @@ module Decidim
 
             def filters
               [
-                :reason_eq,
-                :report_locale_eq
+                :reason_eq
               ]
             end
 
             def filters_with_values
               {
-                reason_eq: report_reasons,
-                report_locale_eq: available_locales
+                reason_eq: report_reasons
               }
             end
 
             def dynamically_translated_filters
-              [:reason_eq,
-               :report_locale_eq]
+              [:reason_eq]
             end
 
             def search_field_predicate
-              :report_field_name_cont
-            end
-
-            def translated_report_locale_eq(value)
-              value.capitalize
+              :decidim_user_id_eq
             end
 
             def translated_reason_eq(value)
@@ -51,10 +44,6 @@ module Decidim
 
             def report_reasons
               Decidim::TranslationAddons::Report::REASONS
-            end
-
-            def available_locale
-              current_organization.available_locales
             end
 
             def extra_allowed_params

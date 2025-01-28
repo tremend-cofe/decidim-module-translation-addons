@@ -9,16 +9,44 @@
 </div>
 
 <%= admin_filter_selector(:report_details) %>
-<div class="table-scroll">
+
+<h1 class="font-bold">
+  <%= link_to "#{t("decidim.admin.reports.table_title")}", decidim_admin_translation_addons.root_path %>
+</h1>
+<div class="table-scroll mt-5">
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= sort_link(query, :id, t(".id")) %></th>
+      <th><%= sort_link(query, :decidim_resource_id, t(".reported_resource_id")) %></th>
+      <th><%= t(".reported_resource_type") %></th>
+      <th><%= t(".field_name") %></th>
+      <th><%= t(".locale") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% report = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id]).first.report %>
+    <tr data-id="<%= report.id %>">
+      <td><%= report.id %></td>
+      <td><%= link_to report.resource.id, resource_locator(report.resource).path %></td>
+      <td><%= report.resource.class.name.demodulize %></td>
+      <td><%= report.field_name.capitalize %></td>
+      <td><%= report.locale %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h1 class="mt-5 font-bold">
+  <%= t("decidim.admin.reports.table_details_title") %>
+</h1>
+<div class="table-scroll mt-5">
   <table class="table-list">
     <thead>
     <tr>
       <th><%= sort_link(query, :id, t(".id")) %></th>
       <th><%= sort_link(query, :decidim_user_id, t(".reporter_id")) %></th>
       <th><%= t(".reason") %></th>
-      <th><%= t(".field_name") %></th>
       <th><%= t(".fix_suggestion") %></th>
-      <th><%= t(".locale") %></th>
       <th><%= sort_link(query, :created_at, t(".created_at")) %></th>
       <th><%= t(".actions") %></th>
     </tr>
@@ -29,9 +57,7 @@
         <td><%= report_detail.id %></td>
         <td><%= report_detail.decidim_user_id %></td>
         <td> <%= report_detail.reason.capitalize %></td>
-        <td> <%= report_detail.report.field_name.capitalize %></td>
         <td> <%= report_detail.fix_suggestion %></td>
-        <td> <%= report_detail.report.locale %></td>
         <td> <%= l report_detail.created_at, format: :decidim_short %></td>
         <td>
           <div class="mb-3">
