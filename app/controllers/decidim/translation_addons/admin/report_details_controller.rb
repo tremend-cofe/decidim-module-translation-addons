@@ -9,6 +9,7 @@ module Decidim
         helper Decidim::PaginateHelper
         helper Decidim::ResourceHelper
         include Decidim::TranslationAddons::Admin::ReportDetails::Filterable
+        include Decidim::SanitizeHelper
 
         layout "decidim/admin/global_moderations"
         before_action :set_translation_details_breadcrumb_item
@@ -19,12 +20,12 @@ module Decidim
 
         def accept
           # WIP --------------------------------------------------------
-          Decidim::TranslationAddons::ReportDetail.find params[:report_id]
-
-          Decidim::TranslationAddons::AcceptReportDetail.call(report, current_user) do
+          @form = form(Decidim::TranslationAddons::AcceptTranslationForm).from_params(params, user: current_user)
+          report_detail = Decidim::TranslationAddons::ReportDetail.find @form.id
+          Decidim::TranslationAddons::AcceptDetail.call(report_detail, current_user, decidim_sanitize(@form.field_translation)) do
             on(:ok) do
               flash[:notice] = I18n.t("report_details.accept.success", scope: "decidim.admin")
-              redirect_to report_report_details_path
+              redirect_to reports_path()
             end
 
             on(:invalid) do

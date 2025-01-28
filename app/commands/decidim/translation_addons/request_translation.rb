@@ -37,7 +37,7 @@ module Decidim
             report.field_name,
             report.field_with_merged_machine_translations[@default_locale],
             report.locale,
-            source_locale
+            @default_locale
           )
           report
         end
