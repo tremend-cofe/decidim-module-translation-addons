@@ -7,6 +7,7 @@ en:
         locale_label: "Language for the report: "
         translation_label: "Please insert the correct value for the translation: "
         report_suggestion_label: "The translation suggested by the reporter: "
+        reason_label: "Reason for reporting translation: "
         cancel: Cancel
         accept: Save
         title: Accept translation report
@@ -64,7 +65,7 @@ en:
       admin:
         report_details:
           index:
-            accept: Accept sugesstion
+            accept: Accept report
             actions: Actions
             created_at: Created at
             decline: Decline report
