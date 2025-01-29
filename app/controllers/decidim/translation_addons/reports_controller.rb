@@ -6,6 +6,7 @@ module Decidim
     class ReportsController < Decidim::TranslationAddons::ApplicationController
       include FormFactory
       include NeedsPermission
+      include Decidim::SanitizeHelper
 
       before_action :authenticate_user!
 
@@ -13,7 +14,7 @@ module Decidim
         enforce_permission_to :create, :moderation
 
         @form = form(Decidim::TranslationAddons::ReportTranslationForm).from_params(params, user: current_user)
-
+        @form.detail = decidim_sanitize(@form.detail) if @form.detail.present?
         Decidim::TranslationAddons::CreateReport.call(@form, reportable, current_user) do
           on(:ok) do
             flash[:notice] = I18n.t("decidim.reports.create.success")
