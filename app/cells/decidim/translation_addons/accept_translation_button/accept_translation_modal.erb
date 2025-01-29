@@ -1,5 +1,5 @@
 <%= decidim_modal id: modal_id, class: "flag-modal" do %>
-  <%= form_for accept_translation_form, builder:, url: accept_translation_path, method: :post, html: { id: nil } do |f| %>
+  <%= form_for accept_translation_form, builder:, url: accept_translation_path, method: :post, html: { id: nil, class: "form form-defaults" } do |f| %>
     <div data-dialog-container>
       <%= icon "pencil-line" %>
       <h2 id="dialog-title-<%= modal_id %>" tabindex="-1" data-dialog-title><%= t("decidim.admin.accept_translation_modal.title") %></h2>
@@ -10,20 +10,24 @@
       </div>
     </div>
 
-    <div class="mt-5">
-      <p class="ml-10 mt-5">
-        <%= f.text_field :field, value: model.report.field_name.capitalize, disabled: true, label: t("decidim.admin.accept_translation_modal.field_name_label"), label_options: {class: "h6" }, class: "font-normal ml-2.5" %>
+    <div class="mt-3">
+      <p class="ml-10 mt-3">
+        <%= f.text_field :field, value: model.report.field_name.capitalize, disabled: true, label: t("decidim.admin.accept_translation_modal.field_name_label"), label_options: {class: "h6" }, class: "w-full font-normal" %>
       </p>
 
-      <p class="ml-10 mt-5">
-        <%= f.text_field :detail, value: model.fix_suggestion, label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "font-normal ml-2.5" %>
+      <p class="ml-10 mt-3">
+        <%= f.text_field :detail, value: ( model.fix_suggestion.empty? ? "-" : model.fix_suggestion), label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
       </p>
 
-      <p class="ml-10 mt-5">
-        <%= f.text_field :locale, value: model.report.locale.capitalize, label: t("decidim.admin.accept_translation_modal.locale_label"), disabled: true, label_options: { class: "h6" }, class: "font-normal ml-2.5" %>
+      <p class="ml-10 mt-3">
+        <%= f.text_field :reason, value: model.reason.capitalize, label: t("decidim.admin.accept_translation_modal.reason_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
       </p>
 
-      <p class="ml-10 mt-5">
+      <p class="ml-10 mt-3">
+        <%= f.text_field :locale, value: model.report.locale.capitalize, label: t("decidim.admin.accept_translation_modal.locale_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
+      </p>
+
+      <p class="ml-10 mt-3">
         <%= f.text_field :field_translation, label: t("decidim.admin.accept_translation_modal.translation_label"), required: true, label_options: { class: "h6" }, class: "w-full border mt-2.5" %>
       </p>
     </div>

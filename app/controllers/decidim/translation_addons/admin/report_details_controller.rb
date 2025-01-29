@@ -19,8 +19,7 @@ module Decidim
         end
 
         def accept
-          # WIP --------------------------------------------------------
-          @form = form(Decidim::TranslationAddons::AcceptTranslationForm).from_params(params, user: current_user)
+          @form = form(Decidim::TranslationAddons::Admin::AcceptTranslationForm).from_params(params, user: current_user)
           report_detail = Decidim::TranslationAddons::ReportDetail.find @form.id
           Decidim::TranslationAddons::AcceptDetail.call(report_detail, current_user, decidim_sanitize(@form.field_translation)) do
             on(:ok) do
