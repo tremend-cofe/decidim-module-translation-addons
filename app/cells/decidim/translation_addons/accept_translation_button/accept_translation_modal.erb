@@ -16,7 +16,7 @@
       </p>
 
       <p class="ml-10 mt-3">
-        <%= f.text_field :detail, value: ( model.fix_suggestion.empty? ? "-" : model.fix_suggestion), label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
+        <%= f.text_field :detail, value: ( model.fix_suggestion.blank? ? "-" : model.fix_suggestion), label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
       </p>
 
       <p class="ml-10 mt-3">
