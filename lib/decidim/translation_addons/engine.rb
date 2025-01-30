@@ -20,7 +20,7 @@ module Decidim
         end
       end
 
-      initializer "decidim_translation_addons.add_cells_view_paths" do
+      initializer "decidim_translation_addons.add_cells_view_paths", before: "decidim_comments.add_cells_view_paths" do
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::TranslationAddons::Engine.root}/app/cells")
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::TranslationAddons::Engine.root}/app/views") # for partials
       end
