@@ -1,4 +1,3 @@
-<%= append_javascript_pack_tag "decidim_translation_addons" %>
 <% fields = translatable_fields %>
 <%= decidim_modal id: modal_id, class: "flag-modal" do %>
   <%= form_for translation_report_form, builder:, url: report_translation_path, method: :post, html: { id: nil } do |f| %>
@@ -24,9 +23,6 @@
         ], :first, :last do |builder|
           builder.label(for: nil, class: "form__wrapper-checkbox-label h6") { builder.radio_button(id: builder.value) + builder.text }
         end %>
-      </p>
-      <p class="ml-10 mt-5">
-       <%= f.text_field :field_translation, value: "I think i need JS in here", disabled: true, label: t("decidim.shared.flag_modal.translation.value") , label_options: {class: "h6" }, class: "w-full mt-2 mb-2 disabled", id: "current-field-value" %>
       </p>
       <p class="ml-10 mt-5">
        <%= f.text_field :detail, label: t("decidim.shared.flag_modal.translation.suggestion_label") , label_options: {class: "h6" }, class: "w-full mt-2 mb-2", id:"translation-suggestion" %>
