@@ -50,10 +50,6 @@ module Decidim
         t("decidim.translation_addons.admin.report_details.index.accept")
       end
 
-      def icon_name
-        "check-line"
-      end
-
       def html_options
         { data: { "dialog-open": current_user ? modal_id : "loginModal" } }
       end

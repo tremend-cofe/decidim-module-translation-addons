@@ -26,9 +26,15 @@
     </thead>
     <tbody>
     <% report = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id]).first.report %>
+    <% if report.resource.is_a?(Decidim::Comments::Comment) %>
+      <%
+        root_resource = Decidim::Comments::Comment.find_by(id: report.decidim_resource_id).root_commentable
+        comment_path = "#{resource_locator(root_resource).path("commentId" => report.decidim_resource_id)}#comment_#{report.decidim_resource_id}"
+      %>
+    <% end  %>
     <tr data-id="<%= report.id %>">
       <td><%= report.id %></td>
-      <td><%= link_to report.resource.id, resource_locator(report.resource).path %></td>
+      <td><%= link_to report.resource.id, report.resource.is_a?(Decidim::Comments::Comment) ? comment_path : resource_locator(report.resource).path %></td>
       <td><%= report.resource.class.name.demodulize %></td>
       <td><%= report.field_name.capitalize %></td>
       <td><%= report.locale %></td>
@@ -63,7 +69,7 @@
           <div class="mb-3">
             <%= cell "decidim/translation_addons/accept_translation_button", report_detail %>
           </div>
-            <%= icon_link_to "close-line", decidim_admin_translation_addons.decline_report_report_detail_path(id: report_detail.id), t(".decline"), class: "action-icon--decline", method: :put %>
+            <%= link_to t(".decline"), decidim_admin_translation_addons.decline_report_report_detail_path(id: report_detail.id), class: "button button__sm button__text button__text-secondary", method: :put %>
         </td>
       </tr>
     <% end %>
