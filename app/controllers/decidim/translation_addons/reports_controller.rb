@@ -21,6 +21,11 @@ module Decidim
             redirect_back fallback_location: decidim.root_path
           end
 
+          on(:not_missing) do
+            flash[:alert] = I18n.t("decidim.shared.notification_messages.not_missing")
+            redirect_back fallback_location: decidim.root_path
+          end
+
           on(:invalid) do
             flash[:alert] = I18n.t("decidim.reports.create.error")
             redirect_back fallback_location: decidim.root_path

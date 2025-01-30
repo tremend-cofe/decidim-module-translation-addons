@@ -15,7 +15,6 @@ en:
       translation_request:
         success: The translation request was created successfully
         invalid: There was a problem with the translation request
-        not_missing: Field is not missing
         missing_default_locale: Can't find default locale
       unreport:
         success: The unreport was performed sucessfully
@@ -48,6 +47,8 @@ en:
         table_title: Report data
         table_details_title: Report details
     shared:
+      notification_messages:
+        not_missing: Field is not missing
       flag_modal:
         translation:
           already_reported: This content was already reported for wrong translations

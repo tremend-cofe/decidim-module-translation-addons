@@ -6,13 +6,15 @@ module Decidim
       def initialize(report, current_user)
         @report = report
         @current_user = current_user
-        @default_locale = @report.resource.respond_to?(:organization) ? @report.resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
+        @source_locale = @report.resource.respond_to?(:organization) ? @report.resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
       end
 
       def call
         return broadcast(:invalid) if @report.blank? || @current_user.blank?
-        return broadcast(:not_missing) if report.field_with_merged_machine_translations[@report.locale].present?
-        return broadcast(:missing_default_locale) if report.field_with_merged_machine_translations[@default_locale].blank?
+
+        # return broadcast(:not_missing) if report.field_with_merged_machine_translations[@report.locale].present?
+
+        # return broadcast(:missing_default_locale) if report.field_with_merged_machine_translations[@source_locale].blank?
 
         request_translation
         broadcast(:ok)
@@ -23,6 +25,7 @@ module Decidim
       attr_reader :report, :current_user
 
       def request_translation
+        @source_locale = report.field_with_merged_machine_translations.first[0] if report.field_with_merged_machine_translations[@source_locale].blank?
         Decidim.traceability.perform_action!(
           :request_translation,
           @report,
@@ -35,9 +38,9 @@ module Decidim
           Decidim::MachineTranslationFieldsJob.perform_later(
             report.resource,
             report.field_name,
-            report.field_with_merged_machine_translations[@default_locale],
+            report.field_with_merged_machine_translations[@source_locale],
             report.locale,
-            @default_locale
+            @source_locale
           )
           report
         end

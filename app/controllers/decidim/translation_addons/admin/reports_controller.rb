@@ -43,7 +43,7 @@ module Decidim
             end
 
             on(:not_missing) do
-              flash[:alert] = I18n.t("translation_request.not_missing", scope: "decidim.admin")
+              flash[:alert] = I18n.t("decidim.shared.notification_messages.not_missing")
               redirect_to reports_path
             end
 
