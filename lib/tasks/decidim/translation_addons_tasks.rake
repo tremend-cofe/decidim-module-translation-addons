@@ -78,7 +78,6 @@ namespace :decidim do
                         report = Decidim::TranslationAddons::Report.new(
                           decidim_resource_type: resource.class.name,
                           decidim_resource_id: resource.id,
-                          reason: "missing",
                           field_name: field,
                           locale:
                         )
