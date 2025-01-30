@@ -22,9 +22,7 @@ module Decidim
         Decidim::Conference
         Decidim::Initiative
         Decidim::ParticipatoryProcess
-      ).select do |klass|
-        klass.safe_constantize.present?
-      end
+      )
     end
 
     config_accessor :deface_enabled do
