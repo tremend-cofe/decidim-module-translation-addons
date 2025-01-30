@@ -16,7 +16,7 @@ module Decidim
         hash.push(I18n.locale)
         hash.push(only_button? ? 1 : 0)
         hash.push(current_user.try(:id))
-        hash.push((model.decidim_user_id == current_user.id) ? 1 : 0)
+        hash.push(model.decidim_user_id == current_user.id ? 1 : 0)
         hash.push(model.class.name.gsub("::", ":"))
         hash.push(model.id)
         hash.join(Decidim.cache_key_separator)
@@ -56,4 +56,3 @@ module Decidim
     end
   end
 end
-

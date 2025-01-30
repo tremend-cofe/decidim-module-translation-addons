@@ -24,7 +24,7 @@ module Decidim
           Decidim::TranslationAddons::AcceptDetail.call(report_detail, current_user, decidim_sanitize(@form.field_translation)) do
             on(:ok) do
               flash[:notice] = I18n.t("report_details.accept.success", scope: "decidim.admin")
-              redirect_to reports_path()
+              redirect_to reports_path
             end
 
             on(:invalid) do
@@ -47,7 +47,7 @@ module Decidim
                 redirect_to report_report_details_path
               else
                 flash[:notice] = I18n.t("report_details.decline.success_with_report_deleted", scope: "decidim.admin")
-                redirect_to reports_path()
+                redirect_to reports_path
               end
             end
 

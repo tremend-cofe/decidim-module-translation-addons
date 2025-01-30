@@ -33,8 +33,7 @@ module Decidim
 
       initializer "decidim_translation_addons_admin.menu" do
         Decidim.menu :admin_global_moderation_menu do |menu|
-
-          translation_reports_count = Decidim::TranslationAddons::ReportDetail.all.count
+          translation_reports_count = Decidim::TranslationAddons::ReportDetail.count
 
           caption = t("decidim.admin.reports.page_title")
           caption += content_tag(:span, translation_reports_count, class: "component-counter")

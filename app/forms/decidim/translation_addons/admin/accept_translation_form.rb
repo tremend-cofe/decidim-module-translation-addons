@@ -12,7 +12,7 @@ module Decidim
         attribute :reason, String # Reason of report
         attribute :field_translation, String # Value to be submitted
         attribute :locale, String # Current locale of the report
-        attribute :resource_id, Integer #ID of the ReportDetail
+        attribute :resource_id, Integer # ID of the ReportDetail
 
         validates :field_translation, presence: true
       end

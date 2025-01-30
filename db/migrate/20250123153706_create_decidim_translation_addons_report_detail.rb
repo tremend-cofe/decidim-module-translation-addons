@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateDecidimTranslationAddonsReportDetail < ActiveRecord::Migration[7.0]
   def change
     create_table :decidim_translation_addons_report_details do |t|
