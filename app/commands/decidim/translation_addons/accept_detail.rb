@@ -39,10 +39,10 @@ module Decidim
         ) do
           field_object = @report_detail.report.resource[@report_detail.report.field_name]
           field_object.merge!(@report_detail.report.locale => @new_value)
-          if field_object.key?("machine_translations") && field_object["machine_translations"].key?(@report_detail.report.locale)
+          if field_object.has_key?("machine_translations") && field_object["machine_translations"].has_key?(@report_detail.report.locale)
             field_object["machine_translations"].except!(@report_detail.report.locale)
           end
-          @report_detail.report.resource.update_column @report_detail.report.field_name.to_sym, field_object
+          @report_detail.report.resource.update_column @report_detail.report.field_name.to_sym, field_object # rubocop:disable Rails/SkipsModelValidations
           @report_detail.report.destroy
         end
       end
