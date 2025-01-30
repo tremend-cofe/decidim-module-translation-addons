@@ -1,2 +1,1 @@
-// Images
-require.context("../images", true)
+import "src/decidim/translation_addons/decidim_translation_addons"
