@@ -29,8 +29,14 @@
     <tbody>
     <% @reports.each do |report| %>
       <tr data-id="<%= report.id %>">
+        <% if report.resource.is_a?(Decidim::Comments::Comment) %>
+          <%
+            root_resource = Decidim::Comments::Comment.find_by(id: report.decidim_resource_id).root_commentable
+            comment_path = "#{resource_locator(root_resource).path("commentId" => report.decidim_resource_id)}#comment_#{report.decidim_resource_id}"
+          %>
+        <% end  %>
           <td><%= report.id %></td>
-          <td><%= link_to report.resource.id, resource_locator(report.resource).path %></td>
+          <td><%= link_to report.resource.id, report.resource.is_a?(Decidim::Comments::Comment) ? comment_path : resource_locator(report.resource).path %></td>
           <td> <%= report.resource.class.name.demodulize %></td>
           <td> <%= report.field_name.capitalize %></td>
           <td> <%= report.locale %></td>

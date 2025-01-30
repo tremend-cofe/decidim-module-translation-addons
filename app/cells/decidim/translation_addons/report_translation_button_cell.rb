@@ -38,7 +38,7 @@ module Decidim
       end
 
       def modal_id
-        options[:modal_id] || "flagTranslationModal"
+        options[:modal_id] || "flagTranslationModal-#{model&.id}"
       end
 
       def user_reportable?

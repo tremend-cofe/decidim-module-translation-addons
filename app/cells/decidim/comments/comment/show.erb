@@ -32,7 +32,7 @@
               </li>
             <% end %>
             <li>
-              <%= cell "decidim/translation_addons/report_translation_button", model, only_button: true, button_classes: "dropdown__item flex-row-reverse" %>
+              <%= cell("decidim/translation_addons/report_translation_button", model, button_classes: "dropdown__item flex-row-reverse") %>
             </li>
             <li>
               <%= link_to "#{commentable_path("commentId" => model.id)}#comment_#{model.id}", target: "_blank", data: { "external-link": "text-only" }, class: "dropdown__item", title: t("decidim.components.comment.single_comment_link_title") do %>
