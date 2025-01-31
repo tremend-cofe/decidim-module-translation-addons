@@ -59,7 +59,7 @@ module Decidim
           end.to change(Decidim::TranslationAddons::Report, :count).by(1).and change(Decidim::TranslationAddons::ReportDetail, :count).by(1)
         end
 
-        it "creates answers with the correct information" do
+        it "creates Report with the correct information" do
           command.call
           expect(Decidim::TranslationAddons::Report.first.resource.id).to eq(meeting.id)
           expect(Decidim::TranslationAddons::Report.first.resource.class).to eq(meeting.class)

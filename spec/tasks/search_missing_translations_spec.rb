@@ -7,7 +7,7 @@ describe "rake search_missing_translations", type: :task do
   let(:reportable_classes_list) { [Decidim::Proposals::Proposal] }
   let(:organization) { create(:organization, available_locales: %w(en ca es)) }
   let(:participatory_proces) { create(:participatory_process, organization:) }
-  let(:user) { create :user, :admin, organization:, id: 1 }
+  let!(:user) { create :user, :admin, organization:, id: 1 }
   let(:component) do
     create(:proposal_component,
            participatory_space: participatory_proces)
@@ -17,7 +17,6 @@ describe "rake search_missing_translations", type: :task do
     Decidim::TranslationAddons::ReportDetail.delete_all
     Decidim::TranslationAddons::Report.delete_all
     reportable_classes_list.each(&:delete_all)
-    user.id = 1
   end
 
   context "when execute the task" do
