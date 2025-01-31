@@ -3,30 +3,15 @@ en:
   decidim:
     admin:
       accept_translation_modal:
-        field_name_label: "Reported field: "
-        locale_label: "Language for the report: "
-        translation_label: "Please insert the correct value for the translation: "
-        report_suggestion_label: "The translation suggested by the reporter: "
-        reason_label: "Reason for reporting translation: "
-        cancel: Cancel
         accept: Save
-        title: Accept translation report
+        cancel: Cancel
         description: Please review and insert the correct value for the translation
-      translation_request:
-        success: The translation request was created successfully
-        invalid: There was a problem with the translation request
-        missing_default_locale: Can't find default locale
-      unreport:
-        success: The unreport was performed sucessfully
-        invalid: There was a problem when perfoming the unreport
-      report_details:
-        accept:
-          success: The translation report was accepted
-          invalid: There was a problem when accepting the translation request
-        decline:
-          success: The translation report was rejected
-          success_with_report_deleted: The translation report was rejected and report was deleted
-          invalid: There was a problem in rejecting the translation report
+        field_name_label: 'Reported field: '
+        locale_label: 'Language for the report: '
+        reason_label: 'Reason for reporting translation: '
+        report_suggestion_label: 'The translation suggested by the reporter: '
+        title: Accept translation report
+        translation_label: 'Please insert the correct value for the translation: '
       filters:
         report_details:
           reason_eq:
@@ -34,21 +19,35 @@ en:
           report_locale_eq:
             label: Locale
         search_placeholder:
-          field_name_cont: Search Reports by field name
           decidim_user_id_eq: Search Reports by reporter ID
+          field_name_cont: Search Reports by field name
         translation_reports:
           decidim_resource_type_eq:
             label: Report Resource Type
           locale_eq:
             label: Locale
+      report_details:
+        accept:
+          invalid: There was a problem when accepting the translation request
+          success: The translation report was accepted
+        decline:
+          invalid: There was a problem in rejecting the translation report
+          success: The translation report was rejected
+          success_with_report_deleted: The translation report was rejected and report
+            was deleted
       reports:
         details_page_title: Report details
         page_title: Translation Reports
-        table_title: Report data
         table_details_title: Report details
+        table_title: Report data
+      translation_request:
+        invalid: There was a problem with the translation request
+        missing_default_locale: Can't find default locale
+        success: The translation request was created successfully
+      unreport:
+        invalid: There was a problem when perfoming the unreport
+        success: The unreport was performed sucessfully
     shared:
-      notification_messages:
-        not_missing: Field is not missing
       flag_modal:
         translation:
           already_reported: This content was already reported for wrong translations
@@ -62,6 +61,8 @@ en:
           title: Report wrong translation
           value: 'The current value of the selected field is:'
           wrong: The selected field contains a wrong translation
+      notification_messages:
+        not_missing: Field is not missing
     translation_addons:
       admin:
         report_details:
