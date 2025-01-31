@@ -14,7 +14,9 @@ module Decidim
 
       def call
         return broadcast(:invalid) if @resource_instance.blank? || @field.blank? || @locale.blank? || @current_user.blank? || @reason.blank?
-        return broadcast(:not_missing) if @resource_instance[@field][@locale].present? || @resource_instance[@field].dig("machine_translations", @locale).present?
+        if @reason == "missing" && (@resource_instance[@field][@locale].present? || @resource_instance[@field].dig("machine_translations", @locale).present?)
+          return broadcast(:not_missing)
+        end
 
         create_report
         broadcast(:ok)
