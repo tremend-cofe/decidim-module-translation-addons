@@ -6,7 +6,6 @@ module Decidim
       def initialize(report, current_user)
         @report = report
         @current_user = current_user
-        @source_locale = @report.resource.respond_to?(:organization) ? @report.resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
       end
 
       def call
@@ -25,6 +24,7 @@ module Decidim
       attr_reader :report, :current_user
 
       def request_translation
+        @source_locale = @report.resource.respond_to?(:organization) ? @report.resource.organization.default_locale.to_s : Decidim.available_locales.first.to_s
         @source_locale = report.field_with_merged_machine_translations.first[0] if report.field_with_merged_machine_translations[@source_locale].blank?
         Decidim.traceability.perform_action!(
           :request_translation,
