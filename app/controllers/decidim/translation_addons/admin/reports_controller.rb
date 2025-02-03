@@ -18,8 +18,6 @@ module Decidim
         end
 
         def unreport
-          # enforce_permission_to :unreport, authorization_scope
-
           report = Decidim::TranslationAddons::Report.find params[:id]
           Decidim::TranslationAddons::Unreport.call(report, current_user) do
             on(:ok) do

@@ -33,7 +33,7 @@ module Decidim
         let(:report_locale) { translation_addons_report.locale }
         let(:report_field) { translation_addons_report.field_name }
 
-        it "broadcasts ok" do 
+        it "broadcasts ok" do
           expect { command.call }.to broadcast(:ok)
         end
 
