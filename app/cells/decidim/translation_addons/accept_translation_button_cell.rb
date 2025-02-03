@@ -27,7 +27,7 @@ module Decidim
       end
 
       def modal_id
-        options[:modal_id] || "acceptTranslationModal"
+        options[:modal_id] || "acceptTranslationModal-#{model&.id}"
       end
 
       def accept_translation_form
