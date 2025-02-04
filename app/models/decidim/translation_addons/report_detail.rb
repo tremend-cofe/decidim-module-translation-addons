@@ -21,8 +21,8 @@ module Decidim
           resource_type: report.class.name,
           field_name: report.field_name,
           resource_id: report.id,
-          locale: report.locale,
-          }
+          locale: report.locale
+        }
       end
     end
   end

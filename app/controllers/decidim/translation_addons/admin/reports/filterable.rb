@@ -18,7 +18,7 @@ module Decidim
               collection
             end
 
-            def add_filters
+            def filters
               [
                 :decidim_resource_type_eq,
                 :locale_eq
@@ -39,7 +39,7 @@ module Decidim
             end
 
             def translated_decidim_resource_type_eq(value)
-              value.name.demodulize
+              value.constantize.name.demodulize
             end
 
             def translated_locale_eq(value)
@@ -51,13 +51,7 @@ module Decidim
             end
 
             def reported_resource_type
-              [
-                Decidim::Blogs::Post,
-                Decidim::Comments::Comment,
-                Decidim::Debates::Debate,
-                Decidim::Meetings::Meeting,
-                Decidim::Proposals::Proposal
-              ]
+              collection.pluck(:decidim_resource_type).uniq.sort
             end
 
             def available_locale

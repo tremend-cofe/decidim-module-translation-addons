@@ -67,7 +67,7 @@ module Decidim
         end
 
         def collection
-          @collection ||= Decidim::TranslationAddons::Report.all
+          @collection ||= Report.order(id: :desc)
         end
 
         def reports
