@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Decidim
-  # Exposes the report resource so users can report a reportable.
+  # Exposes the report resource so users can report a translation.
   module TranslationAddons
     class ReportsController < Decidim::TranslationAddons::ApplicationController
       include FormFactory
@@ -11,7 +11,7 @@ module Decidim
       before_action :authenticate_user!
 
       def create
-        enforce_permission_to :create, :moderation
+        enforce_permission_to :create, :report
 
         @form = form(Decidim::TranslationAddons::ReportTranslationForm).from_params(params, user: current_user)
         @form.detail = decidim_sanitize(@form.detail) if @form.detail.present?
@@ -40,10 +40,7 @@ module Decidim
       end
 
       def permission_class_chain
-        [
-          reportable.participatory_space.manifest.permissions_class,
-          Decidim::Permissions
-        ]
+        [Decidim::TranslationAddons::ReportsPermissions, Decidim::Permissions]
       end
 
       def permission_scope

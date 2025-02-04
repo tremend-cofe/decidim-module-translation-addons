@@ -15,12 +15,15 @@ module Decidim
         before_action :set_translation_details_breadcrumb_item
 
         def index
+          enforce_permission_to :read, :report_details
+
           @report_details = filtered_collection
         end
 
         def accept
+          enforce_permission_to :update, :report
+
           @form = form(Decidim::TranslationAddons::Admin::AcceptTranslationForm).from_params(params, user: current_user)
-          # report_detail = Decidim::TranslationAddons::ReportDetail.find @form.id
           Decidim::TranslationAddons::AcceptDetail.call(@form) do
             on(:ok) do
               flash[:notice] = I18n.t("report_details.accept.success", scope: "decidim.admin")
@@ -35,6 +38,8 @@ module Decidim
         end
 
         def decline
+          enforce_permission_to :unreport, :report_details
+
           report = Decidim::TranslationAddons::ReportDetail.find params[:id]
 
           Decidim::TranslationAddons::UnreportDetail.call(report, current_user) do

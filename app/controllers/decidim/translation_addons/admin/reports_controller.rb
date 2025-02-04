@@ -14,10 +14,14 @@ module Decidim
         before_action :set_translation_breadcrumb_item
 
         def index
+          enforce_permission_to :read, :report
+
           @reports = filtered_collection
         end
 
         def unreport
+          enforce_permission_to :unreport, :report
+
           report = collection.find params[:id]
           Decidim::TranslationAddons::Unreport.call(report, current_user) do
             on(:ok) do
@@ -33,6 +37,8 @@ module Decidim
         end
 
         def request_translation
+          enforce_permission_to :read, :report
+
           report = collection.find params[:id]
           Decidim::TranslationAddons::RequestTranslation.call(report, current_user) do
             on(:ok) do

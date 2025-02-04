@@ -17,11 +17,6 @@ module Decidim
 
       private
 
-      def user_entity?
-        (model.respond_to?(:creator_author) && model.creator_author.respond_to?(:nickname)) ||
-          (model.respond_to?(:author) && model.author.respond_to?(:nickname))
-      end
-
       def cache_hash
         hash = []
         hash.push(I18n.locale)
@@ -41,20 +36,13 @@ module Decidim
         options[:modal_id] || "flagTranslationModal-#{model&.id}"
       end
 
-      def user_reportable?
-        model.is_a?(Decidim::UserReportable)
-      end
 
       def translation_report_form
         @report_form ||= Decidim::TranslationAddons::ReportTranslationForm.from_params(reason: "missing")
       end
 
       def report_translation_path
-        @report_path ||= if user_reportable?
-                           decidim.report_user_path(sgid: model.to_sgid.to_s)
-                         else
-                           Decidim::TranslationAddons::Engine.routes.url_helpers.translation_report_path(sgid: model.to_sgid.to_s)
-                         end
+        @report_path ||= Decidim::TranslationAddons::Engine.routes.url_helpers.translation_report_path(sgid: model.to_sgid.to_s)
       end
 
       def builder
