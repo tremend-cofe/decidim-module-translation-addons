@@ -10,12 +10,27 @@ module Decidim
       let(:reporting_user) { create(:user, organization: meeting_component.organization) }
       let(:meeting_component) { create(:meeting_component) }
       let(:meeting) { create(:meeting, component: meeting_component, title: { en: "Test val en", ca: "test val ca" }) }
-      let!(:translation_addons_report) { create(:translation_addons_report, decidim_resource_id: meeting.id, decidim_resource_type: meeting.class, locale: current_organization.available_locales[0], field_name: "title") }
-      let!(:translation_addons_report_detail) { create(:translation_addons_report_detail, decidim_translation_addons_report_id: translation_addons_report.id, decidim_user_id: reporting_user.id, reason: "wrong") }
+      let(:translation_addons_report) { create(:translation_addons_report, decidim_resource_id: meeting.id, decidim_resource_type: meeting.class, locale: current_organization.available_locales[0], field_name: "title") }
+      let(:translation_addons_report_detail) { create(:translation_addons_report_detail, decidim_translation_addons_report_id: translation_addons_report.id, decidim_user_id: reporting_user.id, reason: "wrong") }
       let(:new_value) { "new test val" }
+      let(:form_params) do
+        {
+          id: translation_addons_report_detail.id,
+          field_translation: new_value
+        }
+      end
+
+      let(:form) { Decidim::TranslationAddons::Admin::AcceptTranslationForm.from_params(form_params).with_context(current_user:) }
+      let(:command) { described_class.new(form) }
+      let(:report_locale) { translation_addons_report.locale }
+      let(:report_field) { translation_addons_report.field_name }
 
       describe "when the call is invalid" do
-        let(:command) { described_class.new(nil, current_user, new_value) }
+        before do
+          form.field_translation = nil
+        end
+
+        let(:command) { described_class.new(form) }
 
         it "broadcasts invalid" do
           expect { command.call }.to broadcast(:invalid)
@@ -29,9 +44,10 @@ module Decidim
       end
 
       describe "when the call is valid" do
-        let(:command) { described_class.new(translation_addons_report_detail, current_user, new_value) }
-        let(:report_locale) { translation_addons_report.locale }
-        let(:report_field) { translation_addons_report.field_name }
+        before do
+          form.id = translation_addons_report_detail.id
+          form.field_translation = new_value
+        end
 
         it "broadcasts ok" do
           expect { command.call }.to broadcast(:ok)
@@ -51,7 +67,8 @@ module Decidim
           end
 
           it "changes the value of the field on the report locale" do
-            expect(report_detail_report_resource[report_field][report_locale]).to eq(new_value)
+            reloaded_meeting = translation_addons_report.resource.reload
+            expect(reloaded_meeting[report_field][report_locale]).to eq(new_value)
           end
         end
       end
