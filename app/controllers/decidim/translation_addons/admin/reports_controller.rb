@@ -18,7 +18,7 @@ module Decidim
         end
 
         def unreport
-          report = Decidim::TranslationAddons::Report.find params[:id]
+          report = collection.find params[:id]
           Decidim::TranslationAddons::Unreport.call(report, current_user) do
             on(:ok) do
               flash[:notice] = I18n.t("unreport.success", scope: "decidim.admin")
@@ -33,7 +33,7 @@ module Decidim
         end
 
         def request_translation
-          report = Decidim::TranslationAddons::Report.find params[:id]
+          report = collection.find params[:id]
           Decidim::TranslationAddons::RequestTranslation.call(report, current_user) do
             on(:ok) do
               flash[:notice] = I18n.t("translation_request.success", scope: "decidim.admin")
@@ -50,6 +50,11 @@ module Decidim
               redirect_to reports_path
             end
 
+            on(:missing_source_locale) do
+              flash[:alert] = I18n.t("translation_request.missing_source_locale", scope: "decidim.admin")
+              redirect_to reports_path
+            end
+
             on(:invalid) do
               flash[:alert] = I18n.t("translation_request.invalid", scope: "decidim.admin")
               redirect_to reports_path
@@ -59,10 +64,6 @@ module Decidim
 
         def configure
           @report_details = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:id])
-        end
-
-        def base_query_finder
-          Decidim::TranslationAddons::Report.all
         end
 
         def collection

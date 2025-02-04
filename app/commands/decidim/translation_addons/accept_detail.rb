@@ -12,7 +12,7 @@ module Decidim
       end
 
       def call
-        return broadcast(:invalid) if @report_detail.blank? || @current_user.blank? || new_value.blank?
+        return broadcast(:invalid) unless [report_detail, current_user, new_value].all?
 
         accept_detail
         broadcast(:ok)
@@ -27,14 +27,7 @@ module Decidim
           :accept_detail,
           @report_detail,
           @current_user,
-          {
-            resource_type: @report_detail.report.class.name,
-            field_name: @report_detail.report.field_name,
-            resource_id: @report_detail.report.id,
-            locale: @report_detail.report.locale,
-            action_user_id: @current_user_id,
-            new_value: @new_value
-          }
+          @report_detail.log_attributes.merge({ action_user_id: @current_user_id, new_value: @new_value })
         ) do
           field_object = @report_detail.report.resource[@report_detail.report.field_name]
           field_object.merge!(@report_detail.report.locale => @new_value)

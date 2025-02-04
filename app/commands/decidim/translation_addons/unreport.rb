@@ -9,7 +9,7 @@ module Decidim
       end
 
       def call
-        return broadcast(:invalid) if @report.blank? || @current_user.blank?
+        return broadcast(:invalid) unless [report, current_user].all?
 
         unreport
         broadcast(:ok)
@@ -17,7 +17,7 @@ module Decidim
 
       private
 
-      attr_reader :resource_instance, :report, :current_user
+      attr_reader :report, :current_user
 
       def unreport
         Decidim.traceability.perform_action!(

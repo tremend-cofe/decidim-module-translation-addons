@@ -13,7 +13,7 @@ module Decidim
       end
 
       def call
-        return broadcast(:invalid) if @resource_instance.blank? || @field.blank? || @locale.blank? || @current_user.blank? || @reason.blank?
+        return broadcast(:invalid) unless [resource_instance, field, locale, current_user, reason].all?
         if @reason == "missing" && (@resource_instance[@field][@locale].present? || @resource_instance[@field].dig("machine_translations", @locale).present?)
           return broadcast(:not_missing)
         end

@@ -20,7 +20,7 @@ module Decidim
       end
 
       def accept_translation_form
-        @raccept_report_form ||= Decidim::TranslationAddons::Admin::AcceptTranslationForm.from_params(rresource_id: model.id)
+        @accept_report_form ||= Decidim::TranslationAddons::Admin::AcceptTranslationForm.from_params(resource_id: model.id)
       end
 
       def accept_translation_path

@@ -15,6 +15,15 @@ module Decidim
       def delete_parent
         report.destroy if report.details.none?
       end
+
+      def log_attributes
+        {
+          resource_type: report.class.name,
+          field_name: report.field_name,
+          resource_id: report.id,
+          locale: report.locale,
+          }
+      end
     end
   end
 end

@@ -43,6 +43,7 @@ en:
       translation_request:
         invalid: There was a problem with the translation request
         missing_default_locale: Can't find default locale
+        missing_source_locale: Can't find source locale
         success: The translation request was created successfully
       unreport:
         invalid: There was a problem when perfoming the unreport

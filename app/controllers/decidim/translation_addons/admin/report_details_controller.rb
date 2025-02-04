@@ -56,10 +56,6 @@ module Decidim
           end
         end
 
-        def base_query_finder
-          Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id])
-        end
-
         def collection
           @collection ||= Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id])
         end
