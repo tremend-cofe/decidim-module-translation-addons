@@ -82,19 +82,16 @@ module Decidim
       end
 
       def already_reported?(field)
-        report = Decidim::TranslationAddons::Report.where(decidim_resource_id: model&.id, field_name: field, locale: current_user&.locale).first
+        report = Decidim::TranslationAddons::Report.where(resource: model, field_name: field, locale: current_user&.locale).first
         return false if report.blank?
 
-        detail = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: report.id, decidim_user_id: current_user&.id)
-        detail.present?
+        report.details.exists?(decidim_user_id: current_user&.id)
       end
 
       def already_reported_resource?
-        already_reported_fields = Decidim::TranslationAddons::Report.joins(:details).where(decidim_resource_id: model&.id,
+        already_reported_fields = Decidim::TranslationAddons::Report.joins(:details).where(resource: model,
                                                                                            locale: current_user&.locale).where(details: { decidim_user_id: current_user&.id }).count
-        return true if already_reported_fields == translatable_fields.count
-
-        false
+        already_reported_fields == translatable_fields.count
       end
     end
   end

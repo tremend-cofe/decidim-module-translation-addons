@@ -11,17 +11,6 @@ module Decidim
 
       private
 
-      def cache_hash
-        hash = []
-        hash.push(I18n.locale)
-        hash.push(only_button? ? 1 : 0)
-        hash.push(current_user.try(:id))
-        hash.push(model.decidim_user_id == current_user.id ? 1 : 0)
-        hash.push(model.class.name.gsub("::", ":"))
-        hash.push(model.id)
-        hash.join(Decidim.cache_key_separator)
-      end
-
       def only_button?
         options[:only_button]
       end

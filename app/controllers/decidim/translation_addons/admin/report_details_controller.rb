@@ -20,8 +20,8 @@ module Decidim
 
         def accept
           @form = form(Decidim::TranslationAddons::Admin::AcceptTranslationForm).from_params(params, user: current_user)
-          report_detail = Decidim::TranslationAddons::ReportDetail.find @form.id
-          Decidim::TranslationAddons::AcceptDetail.call(report_detail, current_user, decidim_sanitize(@form.field_translation)) do
+          # report_detail = Decidim::TranslationAddons::ReportDetail.find @form.id
+          Decidim::TranslationAddons::AcceptDetail.call(@form) do
             on(:ok) do
               flash[:notice] = I18n.t("report_details.accept.success", scope: "decidim.admin")
               redirect_to reports_path

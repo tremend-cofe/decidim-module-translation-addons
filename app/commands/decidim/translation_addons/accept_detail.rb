@@ -3,10 +3,12 @@
 module Decidim
   module TranslationAddons
     class AcceptDetail < Decidim::Command
-      def initialize(report_detail, current_user, new_value)
-        @report_detail = report_detail
-        @current_user = current_user
-        @new_value = new_value
+      include Decidim::SanitizeHelper
+
+      def initialize(form)
+        @report_detail = Decidim::TranslationAddons::ReportDetail.find form.id
+        @current_user = form.current_user
+        @new_value = decidim_sanitize(form.field_translation)
       end
 
       def call
@@ -26,13 +28,10 @@ module Decidim
           @report_detail,
           @current_user,
           {
-            report_id: @report_detail.report.id,
             resource_type: @report_detail.report.class.name,
             field_name: @report_detail.report.field_name,
             resource_id: @report_detail.report.id,
             locale: @report_detail.report.locale,
-            fix_suggestion: @report_detail.fix_suggestion,
-            reporting_user_id: @report_detail.decidim_user_id,
             action_user_id: @current_user_id,
             new_value: @new_value
           }

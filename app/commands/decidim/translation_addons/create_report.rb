@@ -33,27 +33,9 @@ module Decidim
           @current_user,
           visibility: "public-only"
         ) do
-          report = Decidim::TranslationAddons::Report.where(decidim_resource_id: resource_instance.id, decidim_resource_type: resource_instance.class.name, field_name: field,
-                                                            locale:).first
-          if report.blank?
-            report = Decidim::TranslationAddons::Report.new(
-              decidim_resource_type: resource_instance.class.name,
-              decidim_resource_id: resource_instance.id,
-              field_name: field,
-              locale:
-            )
-            report.save!
-          end
+          report = Decidim::TranslationAddons::Report.where(resource: resource_instance, field_name: field, locale:).first_or_create
 
-          if report.present?
-            detail = Decidim::TranslationAddons::ReportDetail.new(
-              decidim_user_id: current_user.id,
-              decidim_translation_addons_report_id: report.id,
-              reason:,
-              fix_suggestion:
-            )
-            detail.save!
-          end
+          report.details.create!(decidim_user_id: current_user.id, reason:, fix_suggestion:)
           report.reload
         end
       end
