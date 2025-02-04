@@ -11,10 +11,10 @@ module Decidim
           allow! if can_access?
 
           if user.admin?
-           allow! if permission_action.subject == :report && (permission_action.action == :read || permission_action.action == :unreport || permission_action.action == :create || permission_action.action == :update)
-           allow! if permission_action.subject == :report_details && (permission_action.action == :create || permission_action.action == :unreport ||permission_action.action == :read)
-          else
-            allow! if permission_action.subject == :report && permission_action.action == :create
+            allow! if permission_action.subject == :report && [:read, :unreport, :create, :update].include?(permission_action.action)
+            allow! if permission_action.subject == :report_details && [:read, :unreport, :create].include?(permission_action.action)
+          elsif permission_action.subject == :report && permission_action.action == :create
+            allow!
           end
 
           permission_action

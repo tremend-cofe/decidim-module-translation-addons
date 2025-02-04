@@ -36,7 +36,6 @@ module Decidim
         options[:modal_id] || "flagTranslationModal-#{model&.id}"
       end
 
-
       def translation_report_form
         @report_form ||= Decidim::TranslationAddons::ReportTranslationForm.from_params(reason: "missing")
       end
