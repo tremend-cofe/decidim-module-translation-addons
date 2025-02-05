@@ -16,7 +16,7 @@
       </p>
 
       <p class="ml-10 mt-3">
-        <%= f.text_field :detail, value: ( model.fix_suggestion.blank? ? "-" : model.fix_suggestion), label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
+        <%= f.text_area :detail, value: ( model.fix_suggestion.blank? ? "-" : model.fix_suggestion), label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
       </p>
 
       <p class="ml-10 mt-3">
@@ -28,7 +28,7 @@
       </p>
 
       <p class="ml-10 mt-3">
-        <%= f.text_field :field_translation, label: t("decidim.admin.accept_translation_modal.translation_label"), required: true, label_options: { class: "h6" }, class: "w-full border mt-2.5" %>
+        <%= f.text_area :field_translation, label: t("decidim.admin.accept_translation_modal.translation_label"), required: true, label_options: { class: "h6" }, class: "w-full border mt-2.5" %>
       </p>
     </div>
 

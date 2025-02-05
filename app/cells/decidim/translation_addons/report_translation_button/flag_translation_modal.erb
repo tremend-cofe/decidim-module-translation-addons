@@ -25,7 +25,7 @@
         end %>
       </p>
       <p class="ml-10 mt-5">
-       <%= f.text_field :detail, label: t("decidim.shared.flag_modal.translation.suggestion_label") , label_options: {class: "h6" }, class: "w-full mt-2 mb-2", id:"translation-suggestion" %>
+       <%= f.text_area :detail, label: t("decidim.shared.flag_modal.translation.suggestion_label") , label_options: {class: "h6" }, class: "w-full mt-2 mb-2", id:"translation-suggestion" %>
       </p>
       <%= f.hidden_field :locale, value: current_user&.locale %>
     </div>
