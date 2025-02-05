@@ -124,7 +124,7 @@ describe "Report" do
         click_link_or_button("Accept report", match: :first)
 
         within "#acceptTranslationModal-#{report_detail1.id}" do
-          find("input#report_detail_field_translation").fill_in(with: "Correct translation")
+          find("textarea#report_detail_field_translation").fill_in(with: "Correct translation")
           click_link_or_button "Save"
         end
 

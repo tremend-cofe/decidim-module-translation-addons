@@ -74,7 +74,7 @@ describe "Report" do
         within "label[for='report_field']" do
           all("#report_field option")[1].select_option
         end
-        find("input#translation-suggestion").fill_in(with: "Dummy suggestion")
+        find("textarea#translation-suggestion").fill_in(with: "Dummy suggestion")
 
         click_link_or_button "Report"
       end
