@@ -25,6 +25,7 @@ module Decidim
 
         context "when clicking the \"Report translation\" section from admin" do
           it "displays the reports" do
+            allow(controller).to receive(:current_user) { user }
             get :index
             expect(response).to render_template(:index)
             expect(flash[:alert]).to be_blank
@@ -32,6 +33,7 @@ module Decidim
           end
 
           it "displays the report details" do
+            allow(controller).to receive(:current_user) { user }
             get :index, :params => { :report_id => report.id }
             expect(response).to render_template(:index)
             expect(flash[:alert]).to be_blank
@@ -48,15 +50,26 @@ module Decidim
             expect(Decidim::TranslationAddons::Report.exists?(id: report.id)).to be(false)
           end
 
+          it "unreports as user is not permitted" do
+            expect(Decidim::TranslationAddons::Report.exists?(id: report.id)).to be(true)
+
+            allow(controller).to receive(:current_user) { create(:user, :confirmed, organization:) }
+            put :unreport, :params => { :id => report.id }
+            expect(flash[:alert]).to eq("You are not authorized to perform this action.")
+
+            expect(Decidim::TranslationAddons::Report.exists?(id: report.id)).to be(true)
+          end
+
           it "request a translation with success" do
             allow(controller).to receive(:current_user) { user }
             post :request_translation, :params => { :id => report.id }
             expect(flash[:notice]).to eq(I18n.t("translation_request.success", scope: "decidim.admin"))
           end
 
-          it "request a translation with missing parameter" do
+          it "request a translation as a user is not permitted" do
+            allow(controller).to receive(:current_user) { create(:user, :confirmed, organization:) }
             post :request_translation, :params => { :id => report.id }
-            expect(flash[:alert]).to eq(I18n.t("translation_request.invalid", scope: "decidim.admin"))
+            expect(flash[:alert]).to eq("You are not authorized to perform this action.")
           end
         end
       end

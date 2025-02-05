@@ -68,10 +68,6 @@ module Decidim
           end
         end
 
-        def configure
-          @report_details = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:id])
-        end
-
         def collection
           @collection ||= Report.order(id: :desc)
         end
