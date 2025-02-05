@@ -1,0 +1,79 @@
+<% add_decidim_page_title(t("decidim.admin.reports.details_page_title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <div>
+      <%= link_to "#{t("decidim.admin.reports.page_title")} > ", decidim_admin_translation_addons.root_path %>
+      <%= t("decidim.admin.reports.details_page_title") %>
+    </div>
+  </h1>
+</div>
+
+<%= admin_filter_selector(:report_details) %>
+
+<h1 class="font-bold">
+  <%= link_to "#{t("decidim.admin.reports.table_title")}", decidim_admin_translation_addons.root_path %>
+</h1>
+<div class="table-scroll mt-5 report-table">
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= sort_link(query, :id, t(".id")) %></th>
+      <th><%= sort_link(query, :decidim_resource_id, t(".reported_resource_id")) %></th>
+      <th><%= t(".reported_resource_type") %></th>
+      <th><%= t(".field_name") %></th>
+      <th><%= t(".locale") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% report = Decidim::TranslationAddons::ReportDetail.where(decidim_translation_addons_report_id: params[:report_id]).first.report %>
+    <% if report.resource.is_a?(Decidim::Comments::Comment) %>
+      <%
+        root_resource = Decidim::Comments::Comment.find_by(id: report.decidim_resource_id).root_commentable
+        comment_path = "#{resource_locator(root_resource).path("commentId" => report.decidim_resource_id)}#comment_#{report.decidim_resource_id}"
+      %>
+    <% end  %>
+    <tr data-id="<%= report.id %>">
+      <td><%= report.id %></td>
+      <td><%= link_to report.resource.id, report.resource.is_a?(Decidim::Comments::Comment) ? comment_path : resource_locator(report.resource).path %></td>
+      <td><%= report.resource.class.name.demodulize %></td>
+      <td><%= report.field_name.capitalize %></td>
+      <td><%= report.locale %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h1 class="mt-5 font-bold">
+  <%= t("decidim.admin.reports.table_details_title") %>
+</h1>
+<div class="table-scroll mt-5 report-details-table">
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= sort_link(query, :id, t(".id")) %></th>
+      <th><%= sort_link(query, :decidim_user_id, t(".reporter_id")) %></th>
+      <th><%= t(".reason") %></th>
+      <th><%= t(".fix_suggestion") %></th>
+      <th><%= sort_link(query, :created_at, t(".created_at")) %></th>
+      <th><%= t(".actions") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @report_details.each do |report_detail| %>
+      <tr data-id="<%= report_detail.id %>">
+        <td><%= report_detail.id %></td>
+        <td><%= report_detail.decidim_user_id %></td>
+        <td> <%= report_detail.reason.capitalize %></td>
+        <td> <%= report_detail.fix_suggestion %></td>
+        <td> <%= l report_detail.created_at, format: :decidim_short %></td>
+        <td>
+          <div class="mb-3">
+            <%= cell "decidim/translation_addons/accept_translation_button", report_detail %>
+          </div>
+            <%= link_to t(".decline"), decidim_admin_translation_addons.decline_report_report_detail_path(id: report_detail.id), class: "button button__sm button__text button__text-secondary", method: :put %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= decidim_paginate @report_details %>

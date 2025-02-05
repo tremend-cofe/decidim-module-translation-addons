@@ -13,7 +13,10 @@ module Decidim
       end
 
       def call
-        return broadcast(:invalid) if @resource_instance.blank? || @field.blank? || @locale.blank? || @current_user.blank? || @fix_suggestion.blank? || @reason.blank?
+        return broadcast(:invalid) unless [resource_instance, field, locale, current_user, reason].all?
+        if @reason == "missing" && (@resource_instance[@field][@locale].present? || @resource_instance[@field].dig("machine_translations", @locale).present?)
+          return broadcast(:not_missing)
+        end
 
         create_report
         broadcast(:ok)
@@ -30,18 +33,10 @@ module Decidim
           @current_user,
           visibility: "public-only"
         ) do
-          report = Decidim::TranslationAddons::Report.new(
-            decidim_user_id: current_user.id,
-            decidim_resource_type: resource_instance.class.name,
-            decidim_resource_id: resource_instance.id,
-            reason:,
-            field_name: field,
-            locale:,
-            fix_suggestion:
-          )
+          report = Decidim::TranslationAddons::Report.where(resource: resource_instance, field_name: field, locale:).first_or_create
 
-          report.save!
-          report
+          report.details.create!(decidim_user_id: current_user.id, reason:, fix_suggestion:)
+          report.reload
         end
       end
     end

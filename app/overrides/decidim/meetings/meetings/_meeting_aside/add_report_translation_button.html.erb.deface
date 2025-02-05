@@ -1,0 +1,2 @@
+<!-- insert_after 'erb[loud]:contains("decidim/report_button")'-->
+  <%= cell "decidim/translation_addons/report_translation_button", meeting %>

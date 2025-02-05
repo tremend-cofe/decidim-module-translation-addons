@@ -10,7 +10,18 @@ module Decidim
       paths["lib/tasks"] = nil
 
       routes do
-        resource :reports, only: [:index]
+        resources :reports, only: [:index] do
+          resources :report_details, only: [:index] do
+            member do
+              put :decline
+              post :accept
+            end
+          end
+          member do
+            put :unreport
+            post :request_translation
+          end
+        end
         root to: "reports#index"
       end
 
@@ -22,10 +33,15 @@ module Decidim
 
       initializer "decidim_translation_addons_admin.menu" do
         Decidim.menu :admin_global_moderation_menu do |menu|
+          translation_reports_count = Decidim::TranslationAddons::ReportDetail.count
+
+          caption = t("decidim.admin.reports.page_title")
+          caption += content_tag(:span, translation_reports_count, class: "component-counter")
+
           menu.add_item :translation_moderation,
-                        "Test",
+                        caption.html_safe,
                         decidim_admin_translation_addons.root_path,
-                        position: 1.3,
+                        position: 3,
                         active: is_active_link?(decidim_admin_translation_addons.root_path)
         end
       end

@@ -1,0 +1,46 @@
+<%= decidim_modal id: modal_id, class: "flag-modal" do %>
+  <%= form_for accept_translation_form, builder:, url: accept_translation_path, method: :post, html: { id: nil, class: "form form-defaults" } do |f| %>
+    <div data-dialog-container>
+      <%= icon "pencil-line" %>
+      <h2 id="dialog-title-<%= modal_id %>" tabindex="-1" data-dialog-title><%= t("decidim.admin.accept_translation_modal.title") %></h2>
+      <div>
+        <div class="form__wrapper flag-modal__form">
+          <p id="dialog-desc-<%= modal_id %>" class="flag-modal__form-description"><%= t("decidim.admin.accept_translation_modal.description") %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <p class="ml-10 mt-3">
+        <%= f.text_field :field, value: model.report.field_name.capitalize, disabled: true, label: t("decidim.admin.accept_translation_modal.field_name_label"), label_options: {class: "h6" }, class: "w-full font-normal" %>
+      </p>
+
+      <p class="ml-10 mt-3">
+        <%= f.text_area :detail, value: ( model.fix_suggestion.blank? ? "-" : model.fix_suggestion), label: t("decidim.admin.accept_translation_modal.report_suggestion_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
+      </p>
+
+      <p class="ml-10 mt-3">
+        <%= f.text_field :reason, value: model.reason.capitalize, label: t("decidim.admin.accept_translation_modal.reason_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
+      </p>
+
+      <p class="ml-10 mt-3">
+        <%= f.text_field :locale, value: model.report.locale.capitalize, label: t("decidim.admin.accept_translation_modal.locale_label"), disabled: true, label_options: { class: "h6" }, class: "w-full font-normal" %>
+      </p>
+
+      <p class="ml-10 mt-3">
+        <%= f.text_area :field_translation, label: t("decidim.admin.accept_translation_modal.translation_label"), required: true, label_options: { class: "h6" }, class: "w-full border mt-2.5" %>
+      </p>
+    </div>
+
+    <div data-dialog-actions>
+      <button type="button" class="button button__lg button__transparent-secondary" data-dialog-close="<%= modal_id %>">
+        <%= t("decidim.admin.accept_translation_modal.cancel") %>
+      </button>
+
+      <button type="submit" class="button button__lg button__secondary">
+        <span><%= t("decidim.admin.accept_translation_modal.accept") %></span>
+        <%= icon "check-line", class: "fill-current" %>
+      </button>
+    </div>
+  <% end %>
+<% end %>

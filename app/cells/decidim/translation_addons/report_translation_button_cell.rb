@@ -17,11 +17,6 @@ module Decidim
 
       private
 
-      def user_entity?
-        (model.respond_to?(:creator_author) && model.creator_author.respond_to?(:nickname)) ||
-          (model.respond_to?(:author) && model.author.respond_to?(:nickname))
-      end
-
       def cache_hash
         hash = []
         hash.push(I18n.locale)
@@ -38,11 +33,7 @@ module Decidim
       end
 
       def modal_id
-        options[:modal_id] || "flagTranslationModal"
-      end
-
-      def user_reportable?
-        model.is_a?(Decidim::UserReportable)
+        options[:modal_id] || "flagTranslationModal-#{model&.id}"
       end
 
       def translation_report_form
@@ -50,11 +41,7 @@ module Decidim
       end
 
       def report_translation_path
-        @report_path ||= if user_reportable?
-                           decidim.report_user_path(sgid: model.to_sgid.to_s)
-                         else
-                           Decidim::TranslationAddons::Engine.routes.url_helpers.translation_report_path(sgid: model.to_sgid.to_s)
-                         end
+        @report_path ||= Decidim::TranslationAddons::Engine.routes.url_helpers.translation_report_path(sgid: model.to_sgid.to_s)
       end
 
       def builder
@@ -82,14 +69,16 @@ module Decidim
       end
 
       def already_reported?(field)
-        Decidim::TranslationAddons::Report.exists?(decidim_resource_id: model&.id, decidim_user_id: current_user&.id, field_name: field, locale: current_user&.locale)
+        report = Decidim::TranslationAddons::Report.where(resource: model, field_name: field, locale: current_user&.locale).first
+        return false if report.blank?
+
+        report.details.exists?(decidim_user_id: current_user&.id)
       end
 
       def already_reported_resource?
-        already_reported_fields = Decidim::TranslationAddons::Report.where(decidim_resource_id: model&.id, decidim_user_id: current_user&.id, locale: current_user&.locale).count
-        return true if already_reported_fields == translatable_fields.count
-
-        false
+        already_reported_fields = Decidim::TranslationAddons::Report.joins(:details).where(resource: model,
+                                                                                           locale: current_user&.locale).where(details: { decidim_user_id: current_user&.id }).count
+        already_reported_fields == translatable_fields.count
       end
     end
   end

@@ -1,0 +1,57 @@
+<% add_decidim_page_title(t("decidim.admin.reports.page_title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <div>
+      <%= t("decidim.admin.reports.page_title") %>
+      <span id="js-selected-translation_reports-count" class="component-counter " title="<%= t("decidim.admin.reports.page_title") %>"></span>
+    </div>
+
+  </h1>
+</div>
+
+<%= admin_filter_selector(:translation_reports) %>
+<div class="table-scroll report-table">
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= sort_link(query, :id, t(".id")) %></th>
+      <th><%= sort_link(query, :decidim_resource_id, t(".reported_resource_id")) %></th>
+      <th><%= t(".reported_resource_type") %></th>
+      <th><%= t(".field_name") %></th>
+      <th><%= t(".locale") %></th>
+      <th><%= sort_link(query, :auto_translation_retry_count, t(".translation_counter")) %></th>
+      <th><%= sort_link(query, :translation_last_retry_on, t(".translation_last_retry_on")) %></th>
+      <th><%= sort_link(query, :created_at, t(".created_at")) %></th>
+      <th><%= sort_link(query, :updated_at, t(".updated_at")) %></th>
+      <th><%= t(".actions") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @reports.each do |report| %>
+      <tr data-id="<%= report.id %>">
+        <% if report.resource.is_a?(Decidim::Comments::Comment) %>
+          <%
+            root_resource = Decidim::Comments::Comment.find_by(id: report.decidim_resource_id).root_commentable
+            comment_path = "#{resource_locator(root_resource).path("commentId" => report.decidim_resource_id)}#comment_#{report.decidim_resource_id}"
+          %>
+        <% end  %>
+          <td><%= report.id %></td>
+          <td><%= link_to report.resource.id, report.resource.is_a?(Decidim::Comments::Comment) ? comment_path : resource_locator(report.resource).path %></td>
+          <td> <%= report.resource.class.name.demodulize %></td>
+          <td> <%= report.field_name.capitalize %></td>
+          <td> <%= report.locale %></td>
+          <td> <%= report.auto_translation_retry_count %></td>
+          <td> <%= report.translation_last_retry_on ? (l report.translation_last_retry_on, format: :decidim_short) : "-" %></td>
+          <td> <%= l report.created_at, format: :decidim_short %></td>
+          <td> <%= l report.updated_at, format: :decidim_short %></td>
+          <td>
+            <%= icon_link_to "arrow-go-back-line", decidim_admin_translation_addons.unreport_report_path(id: report.id), t(".unreport"), class: "action-icon--unreport", method: :put %>
+            <%= icon_link_to "pencil-line", decidim_admin_translation_addons.report_report_details_path(report_id: report.id), t(".configure"), class: "action-icon--configure" %>
+            <%= icon_link_to "refresh-line", decidim_admin_translation_addons.request_translation_report_path(id: report.id), t(".auto_translate"), method: :post, class: "action-icon--translate" %>
+          </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= decidim_paginate @reports %>

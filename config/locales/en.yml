@@ -1,8 +1,70 @@
 ---
 en:
   decidim:
+    admin:
+      accept_translation_modal:
+        accept: Save
+        cancel: Cancel
+        description: Please review and insert the correct value for the translation
+        field_name_label: 'Reported field: '
+        locale_label: 'Language for the report: '
+        reason_label: 'Reason for reporting translation: '
+        report_suggestion_label: 'The translation suggested by the reporter: '
+        title: Accept translation report
+        translation_label: 'Please insert the correct value for the translation: '
+      filters:
+        report_details:
+          reason_eq:
+            label: Reason
+          report_locale_eq:
+            label: Locale
+        search_placeholder:
+          decidim_user_id_eq: Search Reports by reporter ID
+          field_name_cont: Search Reports by field name
+        translation_reports:
+          decidim_resource_type_eq:
+            label: Report Resource Type
+          locale_eq:
+            label: Locale
+      report_details:
+        accept:
+          invalid: There was a problem when accepting the translation request
+          success: The translation report was accepted
+        decline:
+          invalid: There was a problem in rejecting the translation report
+          success: The translation report was rejected
+          success_with_report_deleted: The translation report was rejected and report
+            was deleted
+      reports:
+        details_page_title: Report details
+        page_title: Translation Reports
+        table_details_title: Report details
+        table_title: Report data
+      translation_request:
+        invalid: There was a problem with the translation request
+        missing_default_locale: Can't find default locale
+        missing_source_locale: Can't find source locale
+        success: The translation request was created successfully
+      unreport:
+        invalid: There was a problem when perfoming the unreport
+        success: The unreport was performed sucessfully
+    components:
+      comment:
+        confirm_destroy: Are you sure you want to delete this comment?
+        controls_label: Comment controls
+        delete: Delete
+        edit: Edit
+        edited: Edited
+        single_comment_link_title: Get link
+    reports:
+      create:
+        error: There was a problem when creating the report
+        success: The report was created and will be reviewd by an admin
     shared:
+      confirm_modal:
+        cancel: Cancel
       flag_modal:
+        report: Report
         translation:
           already_reported: This content was already reported for wrong translations
             and it will be reviewed by an admin.
@@ -15,3 +77,43 @@ en:
           title: Report wrong translation
           value: 'The current value of the selected field is:'
           wrong: The selected field contains a wrong translation
+      notification_messages:
+        not_missing: Field is not missing
+    translation_addons:
+      admin:
+        report_details:
+          index:
+            accept: Accept report
+            actions: Actions
+            created_at: Created at
+            decline: Decline report
+            details_page_title: Report details
+            field_name: Field
+            fix_suggestion: Translation suggestion
+            id: ID
+            locale: Locale
+            page_title: Translation Reports
+            reason: Reason
+            reported_resource_id: Reported resource ID
+            reported_resource_type: Reported resource type
+            reporter_id: Reporter ID
+            unreport: Unreport
+        reports:
+          index:
+            actions: Actions
+            auto_translate: Run translation service
+            configure: Configure
+            created_at: Created at
+            field_name: Field
+            fix_suggestion: Translation suggestion
+            id: ID
+            locale: Language
+            report_reason: Reason
+            reported_resource_id: Resource ID
+            reported_resource_type: Resource type
+            reporter_id: Reporter ID
+            resource_url: Resource URL
+            translation_counter: Translation retry counter
+            translation_last_retry_on: Last Translation retry
+            unreport: Unreport
+            updated_at: Updated at

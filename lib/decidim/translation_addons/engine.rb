@@ -13,20 +13,17 @@ module Decidim
       routes do
         resource :translation_report, only: [:create], controller: "reports"
       end
+
       initializer "decidim_translation_addons.deface" do
         Rails.application.configure do
-          config.deface.enabled = Decidim::TranslationAddons.deface_enabled
+          config.deface.enabled = true
         end
       end
 
-      initializer "decidim_translation_addons.add_cells_view_paths" do
+      initializer "decidim_translation_addons.add_cells_view_paths", before: "decidim_comments.add_cells_view_paths" do
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::TranslationAddons::Engine.root}/app/cells")
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::TranslationAddons::Engine.root}/app/views") # for partials
       end
-
-      # initializer "decidim_admin.menu" do
-      #   Decidim::TranslationAddons::Menu.register_admin_global_moderation_menu!
-      # end
 
       initializer "decidim_translation_addons.routing" do
         Decidim::Core::Engine.routes do

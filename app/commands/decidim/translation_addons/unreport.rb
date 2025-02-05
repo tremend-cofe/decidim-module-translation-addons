@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+module Decidim
+  module TranslationAddons
+    class Unreport < Decidim::Command
+      def initialize(report, current_user)
+        @report = report
+        @current_user = current_user
+      end
+
+      def call
+        return broadcast(:invalid) unless [report, current_user].all?
+
+        unreport
+        broadcast(:ok)
+      end
+
+      private
+
+      attr_reader :report, :current_user
+
+      def unreport
+        Decidim.traceability.perform_action!(
+          :unreport,
+          @report,
+          @current_user,
+          resource_type: @report.resource.class.name, resource_id: @report.resource.id, field: @report.field_name, locale: @report.locale
+        ) do
+          @report.destroy!
+        end
+      end
+    end
+  end
+end
